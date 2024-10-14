@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { Client, Collection, OAuth2Guild } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, OAuth2Guild } from 'discord.js';
 import { DiscordConfig } from './config/DiscordConfig';
 import { GetGuildsConfigs } from './Utils/ApiConnections';
 import { EventManager } from './EventManeger';
@@ -8,7 +8,7 @@ import { ClientWithCommands, GuildDocument } from './types';
 
 
 export const clients = new Collection<string, ClientWithCommands>();
-let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConfig.partials }) as ClientWithCommands
+let  client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithCommands
 
 (async () => {
   const { data: configsServers } = await GetGuildsConfigs()
@@ -16,7 +16,7 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
   client.config = new Collection<string, GuildDocument>()
   for (let i = 0; i < configsServers.length; i++) {
     const configServer = configsServers[i];
-    client.login(configServer.TOKEN)
+    client.login(process.env.TOKEN)
     client.on('ready', async(clientDiscord: Client) => {
       console.log(`Logged in as ${clientDiscord.user?.tag}!`); 
       if(!client.config.get(configServer.guildId)) await client.config.set(configServer.guildId, configServer)

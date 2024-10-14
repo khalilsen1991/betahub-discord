@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { Client, Collection, GatewayIntentBits, OAuth2Guild } from 'discord.js';
+import { Client, Collection, OAuth2Guild } from 'discord.js';
 import { DiscordConfig } from './config/DiscordConfig';
 import { GetGuildsConfigs } from './Utils/ApiConnections';
 import { EventManager } from './EventManeger';
@@ -8,7 +8,7 @@ import { ClientWithCommands, GuildDocument } from './types';
 
 
 export const clients = new Collection<string, ClientWithCommands>();
-let  client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithCommands
+let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConfig.partials }) as ClientWithCommands
 
 (async () => {
   const { data: configsServers } = await GetGuildsConfigs()
@@ -18,7 +18,6 @@ let  client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithC
     const configServer = configsServers[i];
     client.login(process.env.TOKEN)
     client.on('ready', async(clientDiscord: Client) => {
-      console.log(`Logged in as ${clientDiscord.user?.tag}!`); 
       if(!client.config.get(configServer.guildId)) await client.config.set(configServer.guildId, configServer)
       clients.set(configServer.guildId, client)
       await clientDiscord.guilds.fetch(configServer.guildId)
@@ -32,6 +31,7 @@ let  client = new Client({ intents: [GatewayIntentBits.Guilds] }) as ClientWithC
             .catch((err) => { console.log(`Error fetching members of ${guild.name}!`, err) })
         }) 
       .catch((err) => { console.log('Error fetching guilds!', err) })
+      console.log(`Logged in as ${clientDiscord.user?.tag}!`); 
     })
   }
 })()

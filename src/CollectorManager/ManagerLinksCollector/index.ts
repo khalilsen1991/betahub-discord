@@ -6,8 +6,8 @@ import { commandMiddleware } from "../../Functions/CommandMiddleware";
 require('dotenv').config()
 
 const rolesToAdd: Record<string, string> = {
-  'malicioso': '937504723035111444',
-  'detector': '941831125888815105',
+  'malicioso': '1258199448052306013',
+  'detector': '1258199736725274757',
   'seguro': MISSIONTENCOMPLETEOLEID,
   'virus': MISSIONTENCOMPLETEOLEID,
   'experto': MISSIONELEVENCOMPLETEROLEID
@@ -19,8 +19,8 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
     for (const role in rolesToAdd) {
       if (interaction.customId.split('-')[1] === role) {
         if(interaction.customId.includes('detector-1')){
-          member.roles.add('961300610026721372')
-          if(member.roles.cache.has('961300610026721372')) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
+          member.roles.add('1258199828362432678')
+          if(member.roles.cache.has('1258199828362432678')) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
         } else {
           member.roles.add(rolesToAdd[role]).then(async (newMember) => {
             if(rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID){
@@ -28,7 +28,7 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
               await GetHubKeys(member, keyId)
                 .then(async ({ data }) => {
                   if(data === 'Key aviable'){                
-                    fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
+                    fetch('https://api.fitchin.gg/gamification/challenge-player/complete', {
                       headers: {
                         'Content-Type': 'application/json' ,
                           'x-api-key': process.env.TOKEN_FITCHIN || ''

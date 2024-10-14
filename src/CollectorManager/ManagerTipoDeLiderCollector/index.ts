@@ -2,9 +2,9 @@ import { ButtonInteraction, CacheType } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../../types";
 
 const rolesToAdd: Record<string, string> = {
-  'Artista': '937504631171461150',
-  'Hacker': '937504693167460383',
-  'Líder': '664932467383205889'
+  'Artista': '1258825880549986305',
+  'Hacker': '1258825900334518423',
+  'Líder': '1258825914851131492'
 };
 
 export const TipoDeLiderButtons = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {

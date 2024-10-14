@@ -52,7 +52,7 @@ export const commandRegister = async (client: ClientWithCommands) => {
     try {
       console.log(`Started refreshing ${commands.length} application (/) commands.`);
       // The put method is used to fully refresh all commands in the guild with the current set
-      const data = client.guilds.cache.map(async (guild: Guild) => {
+      const data = await client.guilds.fetch(process.env.GUILD_ID as string).then(async (guild: Guild) => {
         return await rest.put(
           Routes.applicationGuildCommands(clientId, guild.id),
           { body: commands },

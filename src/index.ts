@@ -16,6 +16,8 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
   client.config = new Collection<string, GuildDocument>()
   for (let i = 0; i < configsServers.length; i++) {
     const configServer = configsServers[i];
+    console.log('configServer', configServer)
+    console.log('(configServer.TOKEN', configServer.TOKEN)
     client.login(configServer.TOKEN)
     client.on('ready', async(clientDiscord: Client) => {
       if(!client.config.get(configServer.guildId)) await client.config.set(configServer.guildId, configServer)
@@ -25,8 +27,8 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
         await guild.members.fetch()
           .then(async(members) => { 
               await EventManager(client, guild)
-/*               await commandRegister(client) 
- */              console.log(`Members of ${guild.name} fetched! Total members: ${guild.memberCount}`) 
+              await commandRegister(client) 
+              console.log(`Members of ${guild.name} fetched! Total members: ${guild.memberCount}`) 
             })
             .catch((err) => { console.log(`Error fetching members of ${guild.name}!`, err) })
         }) 

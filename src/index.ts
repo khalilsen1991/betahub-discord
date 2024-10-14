@@ -25,8 +25,8 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
         await guild.members.fetch()
           .then(async(members) => { 
               await EventManager(client, guild)
-              await commandRegister(client) 
-              console.log(`Members of ${guild.name} fetched! Total members: ${guild.memberCount}`) 
+/*               await commandRegister(client) 
+ */              console.log(`Members of ${guild.name} fetched! Total members: ${guild.memberCount}`) 
             })
             .catch((err) => { console.log(`Error fetching members of ${guild.name}!`, err) })
         }) 

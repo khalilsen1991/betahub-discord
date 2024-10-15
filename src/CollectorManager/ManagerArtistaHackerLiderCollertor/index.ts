@@ -16,15 +16,17 @@ export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, 
             fetch('https://api.fitchin.gg/gamification/challenge-player/complete', {
               headers: { 
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.TOKEN_FITCHIN || ''
+                'x-api-key': process.env.TOKEN_FITCHIN!
               },
               method: 'POST',
               body: JSON.stringify({ "key": KEYMISSIONFIVECOMPLETE, "discordId": member.id })
             })
-              .then(async (res) => {
-                if(res.statusText === 'Accepted') await PostHubKeys(member, KEYMISSIONFIVECOMPLETE)
-              })
-              .catch((err) => console.log(err))
+            .then(async (res) => {
+              console.log(res)
+              if(res.statusText === 'Accepted') await PostHubKeys(member, KEYMISSIONFIVECOMPLETE)
+            })
+            .catch((err) => console.error(err))
+              
           }
         })
         .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })

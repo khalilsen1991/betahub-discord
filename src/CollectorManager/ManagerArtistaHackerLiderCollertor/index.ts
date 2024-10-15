@@ -13,6 +13,7 @@ export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, 
       await GetHubKeys(member, KEYMISSIONFIVECOMPLETE)
         .then(async ({ data }) => {
           console.log('data MISION 5 : ', data) 
+          console.log('member.id : ', member.id) 
           console.log('TOKEN FITCHIN : ', process.env.TOKEN_FITCHIN) 
           if(data === 'Key aviable'){
             fetch('https://api.fitchin.gg/gamification/challenge-player/complete', {

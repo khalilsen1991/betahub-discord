@@ -25,7 +25,6 @@ export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, 
               body: JSON.stringify({ "key": KEYMISSIONFIVECOMPLETE, "discordId": member.id })
             })
             .then(async (res) => {
-              console.log(res)
               if(res.statusText === 'Accepted') await PostHubKeys(member, KEYMISSIONFIVECOMPLETE)
             })
             .catch((err) => console.error(err))

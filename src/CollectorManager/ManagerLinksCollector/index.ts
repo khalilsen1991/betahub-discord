@@ -37,7 +37,6 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
                       body: JSON.stringify({ "key": keyId, "discordId":  member.id }) 
                     }) 
                     .then(async (res) => {
-                        console.log(res)
                         if(res.statusText === 'Accepted') await  PostHubKeys(member, keyId)
                       })
                       .catch((err) => console.error(err))

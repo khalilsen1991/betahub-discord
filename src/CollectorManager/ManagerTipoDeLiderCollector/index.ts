@@ -1,19 +1,21 @@
-import { ButtonInteraction, CacheType } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, CacheType } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../../types";
-
-const rolesToAdd: Record<string, string> = {
-  'Artista': '937504631171461150',
-  'Hacker': '937504693167460383',
-  'Líder': '664932467383205889'
-};
+import { CreateSettingButtonOptions } from "../../Utils/CreateButton/CreateButton";
+import { ErrorEmbed, SendArtistHackerOrLiderEmbed } from "../../Utils/Embeds";
+import { MISSIONFIVECOMPLETEOLEID } from "../../globals";
 
 export const TipoDeLiderButtons = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   const member = interaction.guild!.members.cache.get(interaction.user.id)!
-  for (const role in rolesToAdd) {
-    if (interaction.customId.includes(role)) {
-      if(member.roles.cache.has(rolesToAdd[role])) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
-      member.roles.add(rolesToAdd[role]);
-    }
+  if(member.roles.cache.has(MISSIONFIVECOMPLETEOLEID)) {
+    const embeds = await ErrorEmbed(':flag_es: **Ya completaste esta misión**\n:flag_br: **Você já completou esta missão**', member)
+    return interaction.reply({ embeds, ephemeral: true })
   }
-  interaction.reply({ content: `GENIAL :white_check_mark: Mira el canal que te aparece a la izquierda.\nÓTIMO :white_check_mark: Veja o canal que aparece à esquerda.`, ephemeral: true  })
+  const customId = interaction.customId.split(' ')[1].toLocaleLowerCase()
+  const ButtonData = {
+    customId: `${interaction.user.id}-${customId}`,
+    label: 'Obtener puntos / Receber pontos'
+  }
+  const components = await CreateSettingButtonOptions(ButtonData) as ActionRowBuilder<ButtonBuilder>[]
+  const embeds = await SendArtistHackerOrLiderEmbed(customId)
+  interaction.reply({ embeds, components, ephemeral: true  })
 }

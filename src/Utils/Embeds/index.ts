@@ -111,7 +111,49 @@ export function SendEndMissionEmbed(): EmbedBuilder[] {
 		const embedRaw = {
 			title: "Misión cumplida",
 			description: ":flag_es: ¡Perfecto! Recibirás tus puntos en la plataforma en breve. **Ahora regresa para avanzar con la siguiente misión: https://fitchin.gg/communities/mundo-beta/challenges ** \n\n:flag_br: Ótimo! Você receberá seus pontos dessa missão daqui a pouco. **Agora volte à plataforma para avançar com a seguinte missão: https://fitchin.gg/communities/mundo-beta/challenges **",
-			color: 15526925
+			color: successColor
+		}
+		const embedProccessingPayment = CreateEmbed(embedRaw)
+		return [embedProccessingPayment]
+	} catch (e) {
+		console.log(e)
+		throw e
+	}
+}
+
+export function SendMissionOneEmbed(): EmbedBuilder[] {
+	try {
+		const embedRaw = {
+			description: "Es genial que estés aquí 🙌 ¡Empecemos!\n¿Qué te gustaría encontrar en este curso? 🤔",
+			color: warningColor
+		}
+		const embedProccessingPayment = CreateEmbed(embedRaw)
+		return [embedProccessingPayment]
+	} catch (e) {
+		console.log(e)
+		throw e
+	}
+}
+
+export function SendMissionTwoEmbed(): EmbedBuilder[] {
+	try {
+		const embedRaw = {
+			description: "¿Empezamos la misión 3? 😊",
+			color: warningColor
+		}
+		const embedProccessingPayment = CreateEmbed(embedRaw)
+		return [embedProccessingPayment]
+	} catch (e) {
+		console.log(e)
+		throw e
+	}
+}
+
+export function SendMissionThreeEmbed(): EmbedBuilder[] {
+	try {
+		const embedRaw = {
+			description: "¡Wow! Misión número 6 🙌 \n\n¿Vamos?",
+			color: warningColor
 		}
 		const embedProccessingPayment = CreateEmbed(embedRaw)
 		return [embedProccessingPayment]

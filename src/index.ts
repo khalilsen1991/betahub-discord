@@ -29,6 +29,7 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
               console.log(`Members of ${guild.name} fetched! Total members: ${guild.memberCount}`) 
             })
             .catch((err) => { console.log(`Error fetching members of ${guild.name}!`, err) })
+            await guild.channels.fetch()
         }) 
       .catch((err) => { console.log('Error fetching guilds!', err) })
       console.log(`Logged in as ${clientDiscord.user?.tag}!`); 

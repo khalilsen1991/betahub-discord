@@ -13,8 +13,8 @@ const token = process.env.TOKEN
 
  // DEV
  /**/
-const clientId = '' as string
-const token = '' as string
+ const clientId = process.env.CLIENT_ID
+ const token = process.env.TOKEN
  
 // Grab all the command folders from the commands directory you created earlier
 const foldersPath = path.join(__dirname, 'Commands');

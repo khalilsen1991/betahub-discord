@@ -21,6 +21,30 @@ export const CreateEmbed = (embedRaw: EmbedRaw): EmbedBuilder => {
 	}
 }
 
+export const CreateEmbedArray = (embedRaw: EmbedRaw[]): EmbedBuilder[] => {
+	try {
+		const embeds: EmbedBuilder[] = []
+		for (const embed of embedRaw) {
+			const embedBuilder = new EmbedBuilder()
+			if (embed.author) embedBuilder.setAuthor(embed.author)
+			if (embed.color) embedBuilder.setColor(embed.color)
+			if (embed.url) embedBuilder.setURL(embed.url)
+			if (embed.image) embedBuilder.setImage(embed.image)
+			if (embed.footer) embedBuilder.setFooter(embed.footer)
+			if (embed.thumbnail) embedBuilder.setThumbnail(embed.thumbnail)
+			if (embed.description) embedBuilder.setDescription(embed.description)
+			if (embed.title) embedBuilder.setTitle(embed.title)
+			if (embed.timestamp) embedBuilder.setTimestamp()
+
+			embeds.push(embedBuilder)
+		}
+		return embeds
+	} catch (e) {
+		console.log(e)
+		throw(e)
+	}
+}
+
 export const CreateEmbedWithFields = (embedRaw: EmbedWtihFieldsRaw): EmbedBuilder => {
 	try {
 		const embed = new EmbedBuilder()

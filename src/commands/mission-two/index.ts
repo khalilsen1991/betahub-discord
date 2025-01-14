@@ -1,14 +1,12 @@
-import { Message, Client, Guild, SlashCommandBuilder, ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, TextChannel } from 'discord.js'
-import { ErrorEmbed, SendTipoDeLiderEmbed } from '../../Utils/Embeds'
+import { Message, Client, Guild, SlashCommandBuilder, ChatInputCommandInteraction, TextChannel, ActionRowBuilder, StringSelectMenuBuilder } from 'discord.js'
+import { ErrorEmbed, SendMissionTwoEmbed } from '../../Utils/Embeds'
 import { ClientWithCommands, GuildDocument } from '../../types'
-import { commandMiddleware } from '../../Functions/CommandMiddleware'
-import { GetMember } from '../../Utils/ApiConnections'
-import { CreateTipoDeLiderButtons } from '../../Utils/CreateButton/CreateButton'
+import { CreateSelectMenu } from '../../Utils/CreateSelectMenu'
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('tpd')
-		.setDescription('Enviar mensaje tipo de lider')
+		.setName('mission-two')
+		.setDescription('Enviar mensaje mission two')
     .addStringOption(option =>
       option.setName('channel')
         .setDescription('mention a channel or write id to send message in a channel')
@@ -19,28 +17,28 @@ module.exports = {
     try {
       if(!interaction.guildId) return interaction.reply({ embeds: await ErrorEmbed('Error to use command', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
       const channelId = interaction.options.getString('channel')?.replace(/[^\d]/g, '')! || interaction.options.getString('user')!    
-      const data = [
-        {
-          buttonLabel: 'Tipo-de-lider Artista',
-          buttonEmoji: '🎨'
-        },
-        {
-          buttonLabel: 'Tipo-de-lider Hacker',
-          buttonEmoji: '🔍' 
-        },
-        {
-          buttonLabel: 'Tipo-de-lider Lider',
-          buttonEmoji: '🧩' 
-        }
-      ]
       const channel = guild.channels.cache.get(channelId) as TextChannel
       if(!channel) return interaction.reply({ embeds: await ErrorEmbed('Channel not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
+      const embeds = await SendMissionTwoEmbed()
 
-      const components = await CreateTipoDeLiderButtons(data) as ActionRowBuilder<ButtonBuilder>[]
-      const embeds = await SendTipoDeLiderEmbed()
+      const data = {
+        customId: `${channelId}-missiontwo-part1`,
+        placeholder: 'Selecciona una opción',
+        options: [
+          {
+            value: `0`,
+            label: 'Si'
+          },
+          {
+            value: `1`,
+            label: '¡Ya mismo!'
+          }
+        ]
+      }
 
+      const components = await CreateSelectMenu(data) as ActionRowBuilder<StringSelectMenuBuilder>
       interaction.reply({ content:  `Message sent to ${channel}`, ephemeral: true })
-      await channel.send({ embeds, components }).catch((error) => { console.log('Error in send message', error) })
+      await channel.send({ embeds, components: [components] }).catch((error) => {})
     } catch (error) {
       console.log(`Error ${interaction.commandName} command`, error)
     }

@@ -1,36 +1,40 @@
-import { ButtonInteraction } from "discord.js";
+import { ButtonInteraction, roleMention } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../../types";
-import { KEYMISSIONFIVECOMPLETE, MISSIONFIVECOMPLETEOLEID } from "../../globals";
+import { KEYMISSIONFIVECOMPLETE, MISSIONFIVECOMPLETEOLEID, ROLE_EVENT_MENTION } from "../../globals";
 import { GetHubKeys, PostHubKeys } from "../../Utils/ApiConnections";
 import { commandMiddleware } from "../../Functions/CommandMiddleware";
+import { ErrorEmbed, SendEndMissionEmbed } from "../../Utils/Embeds";
 require('dotenv').config()
 
 export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   try { 
+    if(interaction.user.id === interaction.customId.split(' ')[0])  return
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
-    if(member.roles.cache.has(MISSIONFIVECOMPLETEOLEID)) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
-    member.roles.add(MISSIONFIVECOMPLETEOLEID).then(async (newMember) => {
-      await GetHubKeys(member, KEYMISSIONFIVECOMPLETE)
-        .then(async ({ data }) => {
-          if(data === 'Key aviable'){
-            fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
-              headers: { 
-                'Content-Type': 'application/json',
-                'x-api-key': process.env.TOKEN_FITCHIN || ''
-              },
-              method: 'POST',
-              body: JSON.stringify({ "key": KEYMISSIONFIVECOMPLETE, "discordId": member.id })
-            })
-              .then(async (res) => {
-                if(res.statusText === 'Accepted') await PostHubKeys(member, KEYMISSIONFIVECOMPLETE)
+    member.roles.add(MISSIONFIVECOMPLETEOLEID)
+      .then(async () => {
+        await GetHubKeys(member, KEYMISSIONFIVECOMPLETE)
+          .then(async ({ data }) => {
+            if(data === 'Key aviable'){
+              fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
+                headers: { 
+                  'Content-Type': 'application/json',
+                  'x-api-key': process.env.TOKEN_FITCHIN || ''
+                },
+                method: 'POST',
+                body: JSON.stringify({ "key": KEYMISSIONFIVECOMPLETE, "discordId": member.id })
               })
-              .catch((err) => console.log(err))
-          }
+                .then(async (res) => {
+                  if(res.statusText === 'Accepted'){ 
+                    await PostHubKeys(member, KEYMISSIONFIVECOMPLETE)
+                  }
+                })
+                .catch((err) => console.log(err))
+            }
         })
-        .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })
+        .catch((err) => console.log(err))
     })
-    .catch((err) => console.log(err))
-    return interaction.reply({ content: `GENIAL :white_check_mark: Mira el canal que te aparece a la izquierda.\nÓTIMO :white_check_mark: Veja o canal que aparece à esquerda.`, ephemeral: true })
+    const embeds = await SendEndMissionEmbed()
+    return interaction.update({ embeds, components: [] })
   } catch (error) {
     console.log('Error in ArtistaHackerLiderButtons', error)
   }

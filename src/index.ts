@@ -16,7 +16,7 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
   client.config = new Collection<string, GuildDocument>()
   for (let i = 0; i < configsServers.length; i++) {
     const configServer = configsServers[i];
-    client.login(configServer.TOKEN)
+    client.login(process.env.TOKEN)
     client.on('ready', async(clientDiscord: Client) => {
       if(!client.config.get(configServer.guildId)) await client.config.set(configServer.guildId, configServer)
       clients.set(configServer.guildId, client)

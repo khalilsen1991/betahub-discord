@@ -10,26 +10,28 @@ export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, 
   try { 
     if(interaction.user.id === interaction.customId.split(' ')[0])  return
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
-    member.roles.add(MISSIONFIVECOMPLETEOLEID)
-      .then(async () => {
-        await GetHubKeys(member, KEYMISSIONFIVECOMPLETE)
-          .then(async ({ data }) => {
-            if(data === 'Key aviable'){
-              fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
-                headers: { 
-                  'Content-Type': 'application/json',
-                  'x-api-key': process.env.TOKEN_FITCHIN || ''
-                },
-                method: 'POST',
-                body: JSON.stringify({ "key": KEYMISSIONFIVECOMPLETE, "discordId": member.id })
-              })
-                .then(async (res) => {
-                  if(res.statusText === 'Accepted'){ 
-                    await PostHubKeys(member, KEYMISSIONFIVECOMPLETE)
-                  }
-                })
-                .catch((err) => console.log(err))
-            }
+    if(member.roles.cache.has(MISSIONFIVECOMPLETEOLEID)) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
+    member.roles.add(MISSIONFIVECOMPLETEOLEID).then(async (newMember) => {
+      await GetHubKeys(member, KEYMISSIONFIVECOMPLETE)
+        .then(async ({ data }) => {
+          console.log('data MISION 5 : ', data) 
+          console.log('member.id : ', member.id) 
+          console.log('TOKEN FITCHIN : ', process.env.TOKEN_FITCHIN) 
+          if(data === 'Key aviable'){
+            fetch('https://api.fitchin.gg/gamification/challenge-player/complete', {
+              headers: { 
+                'Content-Type': 'application/json',
+                'x-api-key': process.env.TOKEN_FITCHIN!
+              },
+              method: 'POST',
+              body: JSON.stringify({ "key": KEYMISSIONFIVECOMPLETE, "discordId": member.id })
+            })
+            .then(async (res) => {
+              if(res.statusText === 'Accepted') await PostHubKeys(member, KEYMISSIONFIVECOMPLETE)
+            })
+            .catch((err) => console.error(err))
+              
+          }
         })
         .catch((err) => console.log(err))
     })

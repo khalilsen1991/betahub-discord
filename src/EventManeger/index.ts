@@ -1,6 +1,6 @@
 import { Events, Guild } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../types";
-import { MessageEventManager } from "./MessageEvent";
+import { MessagDeleteEventManager, MessageEventManager, MessageUpdateEventManager } from "./MessageEvent";
 import { MembersEvents } from "./MembersEvent";
 import { ReadyEvent } from "./ReadyEvent";
 import { SlashCommandManager } from "./SlashCommandManager";
@@ -15,4 +15,6 @@ export const EventManager = async (client: ClientWithCommands, guild: Guild) => 
   client.on(Events.InteractionCreate, async (interaction) => { if(interaction.isButton() && !interaction.user.bot) await ButtonInteractionManager(interaction, client, config) })
   client.on(Events.InteractionCreate, async (interaction) => { if(interaction.isStringSelectMenu() && !interaction.user.bot) await SelectorMenuInteractionManager(interaction, client, config) })
   client.on('messageCreate', async (message) => { await MessageEventManager(message, client, guild, config) }) 
+  client.on('messageUpdate', async (oldMessage, newMessage) => { await MessageUpdateEventManager(oldMessage, newMessage, client, guild, config) })
+  client.on('messageDelete', async (message) => { await MessagDeleteEventManager(message, client, guild, config) })
 }

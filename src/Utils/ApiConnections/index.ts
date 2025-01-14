@@ -1,6 +1,6 @@
 import axios from "axios";
 import { GuildMember } from "discord.js";
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 9000
 
 export const GetGuildsConfigs = () => axios.get(`http://localhost:${PORT}/guilds/configs`)
 export const PostUser = (member: GuildMember) => axios.post(`http://localhost:${PORT}/user/${member.user.id}/guild/${member.guild.id}`, { user: member.user, guild: member.guild })

@@ -30,6 +30,8 @@ export interface GuildDocument {
   channeleventembed: string,
   channelTabledDuelEmbeds: string,
   TOKEN: string,
+  membersLogsChannelId: string,
+  messagesLogsChannelId: string,
   CLIENT_ID: string,
   redeemChannelId: string,
 }

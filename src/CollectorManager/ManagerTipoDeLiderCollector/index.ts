@@ -1,8 +1,14 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, CacheType } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../../types";
-import { CreateSettingButtonOptions } from "../../Utils/CreateButton/CreateButton";
-import { ErrorEmbed, SendArtistHackerOrLiderEmbed } from "../../Utils/Embeds";
 import { MISSIONFIVECOMPLETEOLEID } from "../../globals";
+import { ErrorEmbed, SendArtistHackerOrLiderEmbed } from "../../Utils/Embeds";
+import { CreateSettingButtonOptions } from "../../Utils/CreateButton/CreateButton";
+
+const rolesToAdd: Record<string, string> = {
+  'Artista': '1258825880549986305',
+  'Hacker': '1258825900334518423',
+  'Líder': '1258825914851131492'
+};
 
 export const TipoDeLiderButtons = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   const member = interaction.guild!.members.cache.get(interaction.user.id)!

@@ -5,14 +5,6 @@ import { config } from "dotenv"
 import { ClientWithCommands } from "./types";
 config();
 
-/* 
-PROD
-const clientId = process.env.CLIENT_ID
-const token = process.env.TOKEN
-*/
-
- // DEV
- /**/
 const clientId = process.env.CLIENT_ID as string
 const token = process.env.TOKEN as string
  

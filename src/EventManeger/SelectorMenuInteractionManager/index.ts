@@ -4,8 +4,8 @@ import { GetMember, PostMember } from "../../Utils/ApiConnections"
 import { ErrorEmbed } from "../../Utils/Embeds"
 import { commandMiddleware } from "../../Functions/CommandMiddleware"
 import { ManagerMissionOneSelectMenuCollector } from "../../CollectorManager/ManagerMissionOneCollector"
-import { ManagerMissionTwoSelectMenuCollector } from "../../CollectorManager/ManagerMissionTwoCollector"
-import { ManagerMissionThreeSelectMenuCollector } from "../../CollectorManager/ManagerMissionThreeCollector"
+import { ManagerMissionFourSelectMenuCollector } from "../../CollectorManager/ManagerMissionFourCollector"
+import { ManagerMissionSixSelectMenuCollector } from "../../CollectorManager/ManagerMissionSixCollector"
 
 export const SelectorMenuInteractionManager = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument, questions?: any[]) => {
 	if(interaction.user.bot || interaction.guildId !== serverConfigs.guildId) return
@@ -24,8 +24,8 @@ export const SelectorMenuInteractionManager = async (interaction: StringSelectMe
         }
       }
       if(interaction.customId.split('-')[1] === 'missionone') await ManagerMissionOneSelectMenuCollector(interaction, client, serverConfigs)
-      if(interaction.customId.split('-')[1] === 'missiontwo') await ManagerMissionTwoSelectMenuCollector(interaction, client, serverConfigs)
-      if(interaction.customId.split('-')[1] === 'missionthree') await ManagerMissionThreeSelectMenuCollector(interaction, client, serverConfigs)
+      if(interaction.customId.split('-')[1] === 'missiontwo') await ManagerMissionFourSelectMenuCollector(interaction, client, serverConfigs)
+      if(interaction.customId.split('-')[1] === 'missionthree') await ManagerMissionSixSelectMenuCollector(interaction, client, serverConfigs)
             
     }) 
     .catch((err) => { commandMiddleware(interaction.guild?.members.cache.get(interaction.user.id)!) })

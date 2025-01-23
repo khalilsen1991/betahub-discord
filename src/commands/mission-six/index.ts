@@ -1,12 +1,12 @@
 import { Message, Client, Guild, SlashCommandBuilder, ChatInputCommandInteraction, TextChannel, ActionRowBuilder, StringSelectMenuBuilder } from 'discord.js'
-import { ErrorEmbed, SendMissionTwoEmbed } from '../../Utils/Embeds'
+import { ErrorEmbed, SendMissionThreeEmbed, SendMissionTwoEmbed } from '../../Utils/Embeds'
 import { ClientWithCommands, GuildDocument } from '../../types'
 import { CreateSelectMenu } from '../../Utils/CreateSelectMenu'
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('mission-two')
-		.setDescription('Enviar mensaje mission two')
+		.setName('mission-six')
+		.setDescription('Enviar mensaje mission six')
     .addStringOption(option =>
       option.setName('channel')
         .setDescription('mention a channel or write id to send message in a channel')
@@ -19,19 +19,19 @@ module.exports = {
       const channelId = interaction.options.getString('channel')?.replace(/[^\d]/g, '')! || interaction.options.getString('user')!    
       const channel = guild.channels.cache.get(channelId) as TextChannel
       if(!channel) return interaction.reply({ embeds: await ErrorEmbed('Channel not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
-      const embeds = await SendMissionTwoEmbed()
+      const embeds = await SendMissionThreeEmbed()
 
       const data = {
-        customId: `${channelId}-missiontwo-part1`,
+        customId: `${interaction.user.id}-missionthree-part1`,
         placeholder: 'Selecciona una opción',
         options: [
           {
-            value: `0`,
-            label: 'Si'
+            label: 'Seeeee',
+            value: `0`
           },
           {
-            value: `1`,
-            label: '¡Ya mismo!'
+            label: 'Ya mismo',
+            value: `1`
           }
         ]
       }

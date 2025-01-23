@@ -2,7 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, CacheType, StringSelectMenuInteraction
 import { ClientWithCommands, GuildDocument } from "../../../types";
 import { SuccessfullyEmbed } from "../../../Utils/Embeds";
 import { CreateButtonLink } from "../../../Utils/CreateButton";
-import { KEYMISSIONTWOCOMPLETE, MISSIONTWOTEMPTWOCOMPLETEROLEID } from "../../../globals";
+import { KEYMISSIONFOURCOMPLETE, MISSIONFOURTEMPTWOCOMPLETEROLEID } from "../../../globals";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
 import { GetHubKeys, PostHubKeys } from "../../../Utils/ApiConnections";
 import { commandMiddleware } from "../../../Functions/CommandMiddleware";
@@ -28,9 +28,9 @@ export const ManagerMissionTwoPartFive = async (interaction: StringSelectMenuInt
   }
   embeds.push(embed[0])
 
-  await client.guilds.cache.get(interaction.guildId!)?.members.cache.get(interaction.user.id)?.roles.add(MISSIONTWOTEMPTWOCOMPLETEROLEID)
+  await client.guilds.cache.get(interaction.guildId!)?.members.cache.get(interaction.user.id)?.roles.add(MISSIONFOURTEMPTWOCOMPLETEROLEID)
   .then(async (newMember) => {
-  const keyId = KEYMISSIONTWOCOMPLETE
+  const keyId = KEYMISSIONFOURCOMPLETE
   await GetHubKeys(newMember, keyId)
     .then(async ({ data }) => {
       if(data === 'Key aviable'){                

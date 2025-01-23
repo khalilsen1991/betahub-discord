@@ -1,7 +1,7 @@
 import { ChannelType, Guild, GuildBasedChannel, Message, PartialMessage } from 'discord.js'
 import { config } from 'dotenv'
 import { ClientWithCommands, GuildDocument } from '../../types'
-import { MESSAGESHAREACHIEVEMENTCHANNELID, MISSIONOFOURTEMPTWOCOMPLETEROLEID } from '../../globals'
+import { MESSAGESHAREACHIEVEMENTCHANNELID, MISSIONNINETEMPTWOCOMPLETEROLEID } from '../../globals'
 config()
 
 export const MessageEventManager = async (message: Message, client: ClientWithCommands, guild: Guild, serverConfigs: GuildDocument) => {
@@ -16,9 +16,10 @@ export const MessageEventManager = async (message: Message, client: ClientWithCo
   }
   if(message.channelId === MESSAGESHAREACHIEVEMENTCHANNELID){
     if(message.author.bot) return
-    if(guild.members.cache.get(message.author.id)?.roles.cache.has(MISSIONOFOURTEMPTWOCOMPLETEROLEID)) return
-    await guild.members.cache.get(message.author.id)?.roles.add(MISSIONOFOURTEMPTWOCOMPLETEROLEID)
-    message.react(`:confetti_ball: `)
+    if(message.attachments.size === 0) return message.delete()
+    if(guild.members.cache.get(message.author.id)?.roles.cache.has(MISSIONNINETEMPTWOCOMPLETEROLEID)) return message.delete()
+    await guild.members.cache.get(message.author.id)?.roles.add(MISSIONNINETEMPTWOCOMPLETEROLEID)
+    message.react(`🎊`)
   }
 }
 

@@ -2,7 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, CacheType, StringSelectMenuBuilder, St
 import { ClientWithCommands, GuildDocument } from "../../../types";
 import { SuccessfullyEmbed } from "../../../Utils/Embeds";
 import { CreateButtonLink } from "../../../Utils/CreateButton";
-import { KEYMISSIONETHREECOMPLETE, MISSIONOTHREETEMPTWOCOMPLETEROLEID } from "../../../globals";
+import { KEYMISSIONSIXCOMPLETE, MISSIONSIXTEMPTWOCOMPLETEROLEID } from "../../../globals";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
 import { GetHubKeys, PostHubKeys } from "../../../Utils/ApiConnections";
 import { commandMiddleware } from "../../../Functions/CommandMiddleware";
@@ -25,9 +25,9 @@ export const ManagerMissionThreePartThree = async (interaction: StringSelectMenu
     embeds.push(await DestructuringEmbeds(interaction.message.embeds[i]))
   }
   embeds.push(embed[0])
-  await client.guilds.cache.get(interaction.guildId!)?.members.cache.get(interaction.user.id)?.roles.add(MISSIONOTHREETEMPTWOCOMPLETEROLEID)
+  await client.guilds.cache.get(interaction.guildId!)?.members.cache.get(interaction.user.id)?.roles.add(MISSIONSIXTEMPTWOCOMPLETEROLEID)
   .then(async (newMember) => {
-    const keyId = KEYMISSIONETHREECOMPLETE
+    const keyId = KEYMISSIONSIXCOMPLETE
     await GetHubKeys(newMember, keyId)
       .then(async ({ data }) => {
         if(data === 'Key aviable'){                

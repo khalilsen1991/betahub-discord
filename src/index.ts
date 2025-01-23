@@ -5,6 +5,7 @@ import { GetGuildsConfigs } from './Utils/ApiConnections';
 import { EventManager } from './EventManeger';
 import { commandRegister } from './CommandsRegister';
 import { ClientWithCommands, GuildDocument } from './types';
+import { config } from 'dotenv';
 
 export const clients = new Collection<string, ClientWithCommands>();
 let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConfig.partials }) as ClientWithCommands
@@ -24,6 +25,7 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
         await guild.members.fetch()
           .then(async(members) => { 
               await EventManager(client, guild)
+              if(i == configsServers.length - 1) await commandRegister(client)
               console.log(`Members of ${guild.name} fetched! Total members: ${guild.memberCount}`) 
             })
             .catch((err) => { console.log(`Error fetching members of ${guild.name}!`, err) })
@@ -33,5 +35,4 @@ let client = new Client({ intents: DiscordConfig.intents , partials: DiscordConf
       console.log(`Logged in as ${clientDiscord.user?.tag}!`); 
     })
   }
-  await commandRegister(client) 
 })()

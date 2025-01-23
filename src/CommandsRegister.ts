@@ -2,19 +2,21 @@ import { Guild, REST, Routes } from 'discord.js'
 import fs from 'node:fs'
 import path from 'node:path'
 import { config } from "dotenv"
-import { ClientWithCommands } from "./types";
+import { ClientWithCommands, GuildDocument } from "./types";
 config();
 
-const clientId = process.env.CLIENT_ID as string
-const token = process.env.TOKEN as string
+let clientId = process.env.CLIENT_ID as string
+let token = process.env.TOKEN as string
  
 // Grab all the command folders from the commands directory you created earlier
 const foldersPath = path.join(__dirname, 'Commands');
 const commandFolders = fs.readdirSync(foldersPath);
 let commands = [] as Object[]
 
-export const commandRegister = async (client: ClientWithCommands) => {
+export const commandRegister = async (client: ClientWithCommands, serverConfigs: GuildDocument) => {
   commands = []
+  clientId = serverConfigs.CLIENT_ID as string
+  token = serverConfigs.TOKEN as string
   if(!clientId || !token) return console.log('Missing required environment variables. Please check your .env file.')
   for (const folder of commandFolders) {
     // Grab all the command files from the commands directory you created earlier

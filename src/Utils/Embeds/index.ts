@@ -138,7 +138,7 @@ export function SendMissionOneEmbed(): EmbedBuilder[] {
 export function SendMissionFourEmbed(): EmbedBuilder[] {
 	try {
 		const embedRaw = {
-			description: "¿Empezamos la misión 3? 😊",
+			description: "¿Empezamos la misión 4? 😊",
 			color: warningColor
 		}
 		const embedProccessingPayment = CreateEmbed(embedRaw)

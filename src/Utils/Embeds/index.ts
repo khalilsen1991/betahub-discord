@@ -135,7 +135,7 @@ export function SendMissionOneEmbed(): EmbedBuilder[] {
 	}
 }
 
-export function SendMissionTwoEmbed(): EmbedBuilder[] {
+export function SendMissionFourEmbed(): EmbedBuilder[] {
 	try {
 		const embedRaw = {
 			description: "¿Empezamos la misión 3? 😊",
@@ -149,7 +149,7 @@ export function SendMissionTwoEmbed(): EmbedBuilder[] {
 	}
 }
 
-export function SendMissionThreeEmbed(): EmbedBuilder[] {
+export function SendMissionSixEmbed(): EmbedBuilder[] {
 	try {
 		const embedRaw = {
 			description: "¡Wow! Misión número 6 🙌 \n\n¿Vamos?",

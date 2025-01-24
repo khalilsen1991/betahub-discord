@@ -3,7 +3,7 @@ import { ClientWithCommands, GuildDocument } from "../../../types";
 import { WarningEmbed } from "../../../Utils/Embeds";
 import { CreateSelectMenu } from "../../../Utils/CreateSelectMenu";
 
-export const ManagerMissionThreePartOne = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
+export const ManagerMissionSixPartOne = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
 
   const embeds = await WarningEmbed('📢 Ahora el aviso de siempre: recuerda que si interrumpes la misión antes de terminarla tendrás que iniciarla de nuevo.\n\nAvancemos...\n\nTe estás acercando mucho apoder crear tu propio presupuesto... ¿qué sientes?', interaction.guild?.members.cache.get(interaction.user.id)!)
   

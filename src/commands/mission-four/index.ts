@@ -1,5 +1,5 @@
 import { Message, Client, Guild, SlashCommandBuilder, ChatInputCommandInteraction, TextChannel, ActionRowBuilder, StringSelectMenuBuilder } from 'discord.js'
-import { ErrorEmbed, SendMissionTwoEmbed } from '../../Utils/Embeds'
+import { ErrorEmbed, SendMissionFourEmbed } from '../../Utils/Embeds'
 import { ClientWithCommands, GuildDocument } from '../../types'
 import { CreateSelectMenu } from '../../Utils/CreateSelectMenu'
 
@@ -19,10 +19,10 @@ module.exports = {
       const channelId = interaction.options.getString('channel')?.replace(/[^\d]/g, '')! || interaction.options.getString('channel')!    
       const channel = guild.channels.cache.get(channelId) as TextChannel
       if(!channel) return interaction.reply({ embeds: await ErrorEmbed('Channel not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
-      const embeds = await SendMissionTwoEmbed()
+      const embeds = await SendMissionFourEmbed()
 
       const data = {
-        customId: `${channelId}-missiontwo-part1`,
+        customId: `${channelId}-missionfour-part1`,
         placeholder: 'Selecciona una opción',
         options: [
           {

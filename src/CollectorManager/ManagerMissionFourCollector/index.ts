@@ -2,13 +2,13 @@ import { ButtonInteraction, CacheType, StringSelectMenuInteraction } from "disco
 import { ClientWithCommands, GuildDocument } from "../../types";
 import { ErrorEmbed } from "../../Utils/Embeds";
 import { MISSIONFOURTEMPTWOCOMPLETEROLEID } from "../../globals";
-import { ManagerMissionTwoPartOne } from "./ManagerPartOne";
-import { ManagerMissionTwoPartTwo } from "./ManagerPartTwo";
-import { ManagerMissionTwoPartThree } from "./ManagerPartThree";
-import { ManagerMissionTwoPartFour } from "./ManagerPartFour";
-import { ManagerMissionTwoPartFive } from "./ManagerPartFive";
+import { ManagerMissionFourPartOne } from "./ManagerPartOne";
+import { ManagerMissionFourPartTwo } from "./ManagerPartTwo";
+import { ManagerMissionFourPartThree } from "./ManagerPartThree";
+import { ManagerMissionFourPartFour } from "./ManagerPartFour";
+import { ManagerMissionFourPartFive } from "./ManagerPartFive";
 
-export const ManagerMissionTwoCollector = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
+export const ManagerMissionFourCollector = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
 }
 
 export const ManagerMissionFourSelectMenuCollector = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
@@ -17,18 +17,18 @@ export const ManagerMissionFourSelectMenuCollector = async (interaction: StringS
       const embeds = await ErrorEmbed('¡Ya completaste esta misión!', interaction.guild?.members.cache.get(interaction.user.id)!)
       return interaction.reply({ embeds, ephemeral: true })
     }
-    await ManagerMissionTwoPartOne(interaction, client, serverConfigs)
+    await ManagerMissionFourPartOne(interaction, client, serverConfigs)
   }
   if(interaction.customId.split('-')[2] === 'part2'){
-    await ManagerMissionTwoPartTwo(interaction, client, serverConfigs)
+    await ManagerMissionFourPartTwo(interaction, client, serverConfigs)
   }
   if(interaction.customId.split('-')[2] === 'part3'){
-    await ManagerMissionTwoPartThree(interaction, client, serverConfigs)
+    await ManagerMissionFourPartThree(interaction, client, serverConfigs)
   }
   if(interaction.customId.split('-')[2] === 'part4'){
-    await ManagerMissionTwoPartFour(interaction, client, serverConfigs)
+    await ManagerMissionFourPartFour(interaction, client, serverConfigs)
   }
   if(interaction.customId.split('-')[2] === 'part5'){
-    await ManagerMissionTwoPartFive(interaction, client, serverConfigs)
+    await ManagerMissionFourPartFive(interaction, client, serverConfigs)
   }
 }

@@ -3,7 +3,6 @@ import { ClientWithCommands, GuildDocument } from "../../../types";
 import { WarningEmbed } from "../../../Utils/Embeds";
 import { CreateSelectMenu } from "../../../Utils/CreateSelectMenu";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
-import { CreateEmbed, CreateEmbedArray } from "../../../Utils/Embeds/CreateEmbed";
 
 export const ManagerMissionOnePartTwo = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   const embed = await WarningEmbed(`Empecemos entonces por hablar sobre el dinero 💰\n\nCuando piensas en dinero...`, interaction.guild?.members.cache.get(interaction.user.id)!)

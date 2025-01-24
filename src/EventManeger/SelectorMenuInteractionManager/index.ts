@@ -7,7 +7,7 @@ import { ManagerMissionOneSelectMenuCollector } from "../../CollectorManager/Man
 import { ManagerMissionFourSelectMenuCollector } from "../../CollectorManager/ManagerMissionFourCollector"
 import { ManagerMissionSixSelectMenuCollector } from "../../CollectorManager/ManagerMissionSixCollector"
 
-export const SelectorMenuInteractionManager = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument, questions?: any[]) => {
+export const SelectorMenuInteractionManager = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
 	if(interaction.user.bot || interaction.guildId !== serverConfigs.guildId) return
   await GetMember(interaction.guild?.members.cache.get(interaction.user.id)!)
     .then(async ({ data : memberDB }) => {
@@ -16,16 +16,9 @@ export const SelectorMenuInteractionManager = async (interaction: StringSelectMe
         const embeds = ErrorEmbed('Por favor intentelo nuevamente', interaction.guild?.members.cache.get(interaction.user.id)!)
         return interaction.reply({ embeds, ephemeral: true })
       }
-      if(interaction.user.id == interaction.customId.split('-')[1]) {
-        const question = questions?.find((q) => q.id === interaction.values[0])
-        if(question) {
-          const embed = await ErrorEmbed(question.question, interaction.guild?.members.cache.get(interaction.user.id)!)
-          return interaction.reply({ embeds: embed, ephemeral: true })
-        }
-      }
       if(interaction.customId.split('-')[1] === 'missionone') await ManagerMissionOneSelectMenuCollector(interaction, client, serverConfigs)
-      if(interaction.customId.split('-')[1] === 'missiontwo') await ManagerMissionFourSelectMenuCollector(interaction, client, serverConfigs)
-      if(interaction.customId.split('-')[1] === 'missionthree') await ManagerMissionSixSelectMenuCollector(interaction, client, serverConfigs)
+      if(interaction.customId.split('-')[1] === 'missionfour') await ManagerMissionFourSelectMenuCollector(interaction, client, serverConfigs)
+      if(interaction.customId.split('-')[1] === 'missionsix') await ManagerMissionSixSelectMenuCollector(interaction, client, serverConfigs)
             
     }) 
     .catch((err) => { commandMiddleware(interaction.guild?.members.cache.get(interaction.user.id)!) })

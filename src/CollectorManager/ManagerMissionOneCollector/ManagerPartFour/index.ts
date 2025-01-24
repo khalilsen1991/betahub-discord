@@ -1,8 +1,16 @@
-import { ActionRowBuilder, CacheType, StringSelectMenuBuilder, StringSelectMenuInteraction } from "discord.js";
+import { ActionRowBuilder, CacheType, ChannelType, StringSelectMenuBuilder, StringSelectMenuInteraction } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../../../types";
 import { WarningEmbed } from "../../../Utils/Embeds";
 import { CreateSelectMenu } from "../../../Utils/CreateSelectMenu";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
+import { MISSIONONELOGSCHANNELID } from "../../../globals";
+
+const responses = { 
+  '0': 'Todavía no nos conocemos mucho', 
+  '1': 'Recién nos estamos conociendo', 
+  '2': 'Nos llevamos muy bien', 
+  '3': 'Nos llevamos muy mal', 
+}
 
 export const ManagerMissionOnePartFour = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   let embed
@@ -11,6 +19,9 @@ export const ManagerMissionOnePartFour = async (interaction: StringSelectMenuInt
   if(interaction.values[0] === '2') embed = await WarningEmbed(`¡Buenísimo! Seguro en esta aventura encuentras cosas para que la relación sea aún mejor 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
   if(interaction.values[0] === '3') embed = await WarningEmbed(`Ok. ¡¡Vamos a intentar revertir eso!! 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
 
+  const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Cómo es tu actual relación con el dinero?**`)
+    
   const embeds: any = []
 
   for (let i = 0; i < interaction.message.embeds.length; i++) {

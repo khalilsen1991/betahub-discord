@@ -2,11 +2,11 @@ import { ButtonInteraction, CacheType, StringSelectMenuInteraction } from "disco
 import { ClientWithCommands, GuildDocument } from "../../types";
 import { ErrorEmbed } from "../../Utils/Embeds";
 import { MISSIONSIXTEMPTWOCOMPLETEROLEID } from "../../globals";
-import { ManagerMissionThreePartOne } from "./ManagerPartOne";
-import { ManagerMissionThreePartTwo } from "./ManagerPartTwo";
-import { ManagerMissionThreePartThree } from "./ManagerPartThree";
+import { ManagerMissionSixPartOne } from "./ManagerPartOne";
+import { ManagerMissionSixPartTwo } from "./ManagerPartTwo";
+import { ManagerMissionSixPartThree } from "./ManagerPartThree";
 
-export const ManagerMissionThreeCollector = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
+export const ManagerMissionSixCollector = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
 }
 
 export const ManagerMissionSixSelectMenuCollector = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
@@ -15,12 +15,12 @@ export const ManagerMissionSixSelectMenuCollector = async (interaction: StringSe
       const embeds = await ErrorEmbed('¡Ya completaste esta misión!', interaction.guild?.members.cache.get(interaction.user.id)!)
       return interaction.reply({ embeds, ephemeral: true })
     }
-    await ManagerMissionThreePartOne(interaction, client, serverConfigs)
+    await ManagerMissionSixPartOne(interaction, client, serverConfigs)
   }
   if(interaction.customId.split('-')[2] === 'part2'){
-    await ManagerMissionThreePartTwo(interaction, client, serverConfigs)
+    await ManagerMissionSixPartTwo(interaction, client, serverConfigs)
   }
   if(interaction.customId.split('-')[2] === 'part3'){
-    await ManagerMissionThreePartThree(interaction, client, serverConfigs)
+    await ManagerMissionSixPartThree(interaction, client, serverConfigs)
   }
 }

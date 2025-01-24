@@ -1,11 +1,17 @@
-import { ActionRowBuilder, ButtonBuilder, CacheType, StringSelectMenuInteraction } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, CacheType, ChannelType, StringSelectMenuInteraction } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../../../types";
 import { SuccessfullyEmbed } from "../../../Utils/Embeds";
 import { CreateButtonLink } from "../../../Utils/CreateButton";
-import { KEYMISSIONONECOMPLETE, MISSIONONETEMPTWOCOMPLETEROLEID } from "../../../globals";
+import { KEYMISSIONONECOMPLETE, MISSIONONELOGSCHANNELID, MISSIONONETEMPTWOCOMPLETEROLEID } from "../../../globals";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
 import { GetHubKeys, PostHubKeys } from "../../../Utils/ApiConnections";
 import { commandMiddleware } from "../../../Functions/CommandMiddleware";
+
+const responses = { 
+  '0': 'Tengo mis propias opiniones', 
+  '1': 'Creo que mi familia influencia mucho mis opiniones',
+  '2': 'No tengo muy claro si haya una relación entre mi familia y el dinero'
+}
 
 export const ManagerMissionOnePartTen = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   let description = ''
@@ -18,6 +24,10 @@ export const ManagerMissionOnePartTen = async (interaction: StringSelectMenuInte
     link: 'https://fitchin.gg/communities/mundo-beta/challenges',
     style: 5
   }
+
+  const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Cómo crees que la relación de tu familia con el dinero ha influido en la forma en que tú lo ves?**`)
+
   const components = await CreateButtonLink(buttonData) as ActionRowBuilder<ButtonBuilder>
   const embed = await SuccessfullyEmbed(description, interaction.guild?.members.cache.get(interaction.user.id)!)
 

@@ -3,7 +3,7 @@ import { ClientWithCommands, GuildDocument } from "../../../types";
 import { WarningEmbed } from "../../../Utils/Embeds";
 import { CreateSelectMenu } from "../../../Utils/CreateSelectMenu";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
-import { MISSIONLOGSCHANNELID } from "../../../globals";
+import { MISSIONONELOGSCHANNELID } from "../../../globals";
 
 const responses = { 
   '0': 'Corto plazo', 
@@ -17,7 +17,8 @@ export const ManagerMissionOnePartSeven = async (interaction: StringSelectMenuIn
   for (let i = 0; i < interaction.message.embeds.length; i++) {
     embeds.push(await DestructuringEmbeds(interaction.message.embeds[i]))
   }
-  const channelLogs = interaction.guild?.channels.cache.get(MISSIONLOGSCHANNELID)
+
+  const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
   if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Sientes que piensas en el dinero para el corto plazo o para el largo plazo?**`)
   
   embeds.push(embed[0])

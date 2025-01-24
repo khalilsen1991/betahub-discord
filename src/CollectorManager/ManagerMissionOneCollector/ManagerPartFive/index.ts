@@ -3,7 +3,7 @@ import { ClientWithCommands, GuildDocument } from "../../../types";
 import { WarningEmbed } from "../../../Utils/Embeds";
 import { CreateSelectMenu } from "../../../Utils/CreateSelectMenu";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
-import { MISSIONLOGSCHANNELID } from "../../../globals";
+import { MISSIONONELOGSCHANNELID } from "../../../globals";
 
 const responses = { 
   '0': 'Fácil', 
@@ -14,7 +14,7 @@ export const ManagerMissionOnePartFive = async (interaction: StringSelectMenuInt
   let embed
   if(interaction.values[0] === '0') embed = await WarningEmbed(`Puedes tener la habilidad y estudiar para ayudarte a ganar dinero, ¡pero esto no quiere decir que sea fácil!\n\n⚠️¡Atención! las propuestas que incluyen una ganancia fácil, tienen trucos ocultos que pueden terminar lastimándonos. Ya veremos eso más adelante...\n\n💭Ahora anímate a imaginar...\n\n¿Qué harías si recibieras una cantidad muy grande de dinero ahora mismo? 😳 `, interaction.guild?.members.cache.get(interaction.user.id)!)
   if(interaction.values[0] === '1') embed = await WarningEmbed(`Ganar dinero requiere de trabajo, esfuerzo y planificación 💪\n\nA lo largo del curso veremos distintas estrategias para que puedas pensar qué es lo mejor para ti 💡\n\n💭 Ahora anímate a imaginar...\n\n¿Qué harías si recibieras una cantidad muy grande de dinero ahora mismo? 😳 `, interaction.guild?.members.cache.get(interaction.user.id)!)
-  const channelLogs = interaction.guild?.channels.cache.get(MISSIONLOGSCHANNELID)
+  const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
   if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Piensas que es fácil o difícil ganar dinero?**`)
   const embeds: any = []
 

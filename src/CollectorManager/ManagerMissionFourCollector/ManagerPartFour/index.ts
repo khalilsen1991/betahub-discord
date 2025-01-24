@@ -30,7 +30,7 @@ export const ManagerMissionFourPartFour = async (interaction: StringSelectMenuIn
   embeds.push(embed[0])
 
   const data = {
-    customId: `${interaction.user.id}-missiontwo-part5`,
+    customId: `${interaction.user.id}-missionfour-part5`,
     placeholder: 'Selecciona una opción',
     options: [
       {

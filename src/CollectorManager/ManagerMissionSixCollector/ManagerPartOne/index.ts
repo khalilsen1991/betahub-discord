@@ -8,7 +8,7 @@ export const ManagerMissionSixPartOne = async (interaction: StringSelectMenuInte
   const embeds = await WarningEmbed('📢 Ahora el aviso de siempre: recuerda que si interrumpes la misión antes de terminarla tendrás que iniciarla de nuevo.\n\nAvancemos...\n\nTe estás acercando mucho apoder crear tu propio presupuesto... ¿qué sientes?', interaction.guild?.members.cache.get(interaction.user.id)!)
   
   const data = {
-    customId: `${interaction.user.id}-missionthree-part2`,
+    customId: `${interaction.user.id}-missionsix-part2`,
     placeholder: 'Selecciona una opción',
     options: [
       {

@@ -6,7 +6,7 @@ import { CreateSelectMenu } from "../../../Utils/CreateSelectMenu";
 export const ManagerMissionFourPartOne = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   const embeds = await WarningEmbed(`📢 [Importante] Recuerda que si interrumpes la misión antes de terminarla tendrás que iniciarla de nuevo.\n\nAhora sí, vamos...\n\nEmpecemos entonces...\n\nEn base a la misión anterior, ¿qué sientes que necesitas?\n\nOpciones:\n1= Ordenar y planificar mejor mis gastos\n2= Disminuir los riesgos de mis finanzas personales\n3= Cambiar mis hábitos de gastos (deseos y necesidades)`, interaction.guild?.members.cache.get(interaction.user.id)!)
   const data = {
-    customId: `${interaction.user.id}-missiontwo-part2`,
+    customId: `${interaction.user.id}-missionfour-part2`,
     placeholder: 'Selecciona una opción',
     options: [
       {

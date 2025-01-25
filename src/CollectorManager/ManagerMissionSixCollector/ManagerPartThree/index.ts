@@ -34,27 +34,29 @@ export const ManagerMissionSixPartThree = async (interaction: StringSelectMenuIn
   }
   embeds.push(embed[0])
   await client.guilds.cache.get(interaction.guildId!)?.members.cache.get(interaction.user.id)?.roles.add(MISSIONSIXTEMPTWOCOMPLETEROLEID)
-  .then(async (newMember) => {
-    const keyId = KEYMISSIONSIXCOMPLETE
-    await GetHubKeys(newMember, keyId)
-      .then(async ({ data }) => {
-        if(data === 'Key aviable'){                
-          await fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
-            headers: {
-              'Content-Type': 'application/json' ,
-                'x-api-key': process.env.TOKEN_FITCHIN || ''
-              },
-            method: 'POST',
-            body: JSON.stringify({ "key": keyId, "discordId":  newMember.id }) 
-          }) 
-            .then(async (res) => {
-              if(res.statusText === 'Accepted') await PostHubKeys(newMember, keyId)
-              await interaction.update({ embeds, components: [components] })
-            })
-            .catch((err) => console.log(err))
-        }
-      })
-      .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })
-  })
-  .catch((err) => console.log(err))
+    .then(async (newMember) => {
+      const keyId = KEYMISSIONSIXCOMPLETE
+      await GetHubKeys(newMember, keyId)
+        .then(async ({ data }) => {
+          if(data === 'Key aviable'){                
+            await fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
+              headers: {
+                'Content-Type': 'application/json' ,
+                  'x-api-key': process.env.TOKEN_FITCHIN || ''
+                },
+              method: 'POST',
+              body: JSON.stringify({ "key": keyId, "discordId":  newMember.id }) 
+            }) 
+              .then(async (res) => {
+                if(res.statusText === 'Accepted') await PostHubKeys(newMember, keyId)
+                await interaction.update({ embeds, components: [components] })
+              })
+              .catch((err) => console.log(err))
+          } else {
+            await interaction.update({ embeds, components: [components] })
+          }
+        })
+        .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })
+    })
+    .catch((err) => console.log(err))
 }

@@ -57,6 +57,8 @@ export const ManagerMissionOnePartTen = async (interaction: StringSelectMenuInte
                 await interaction.update({ embeds, components: [components] })
               })
               .catch((err) => console.log(err))
+          } else {
+            await interaction.update({ embeds, components: [components] })
           }
         })
         .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })

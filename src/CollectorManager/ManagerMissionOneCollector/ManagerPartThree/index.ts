@@ -20,7 +20,7 @@ export const ManagerMissionOnePartThree = async (interaction: StringSelectMenuIn
   if(interaction.values[0] === '3') embed = await WarningEmbed(`Perfecto, es una respuesta totalmente válida. Como las finanzas personales buscan que cumplamos nuestros objetivos, es importante que estemos atentos a qué nos pasa y a qué sentimos 🙌\n\n¿Cómo es tu actual relación con el dinero?`, interaction.guild?.members.cache.get(interaction.user.id)!)
   
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Cuando piensas en dinero...**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Cuando piensas en dinero...**`).catch(() => { null })
     
   const embeds: any = []
   for (let i = 0; i < interaction.message.embeds.length; i++) {

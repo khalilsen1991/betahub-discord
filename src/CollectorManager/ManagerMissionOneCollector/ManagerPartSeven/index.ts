@@ -19,7 +19,7 @@ export const ManagerMissionOnePartSeven = async (interaction: StringSelectMenuIn
   }
 
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Sientes que piensas en el dinero para el corto plazo o para el largo plazo?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Sientes que piensas en el dinero para el corto plazo o para el largo plazo?**`).catch(() => { null })
   
   embeds.push(embed[0])
 

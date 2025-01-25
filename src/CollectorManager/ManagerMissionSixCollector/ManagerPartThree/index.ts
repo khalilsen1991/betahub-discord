@@ -18,7 +18,7 @@ export const ManagerMissionSixPartThree = async (interaction: StringSelectMenuIn
   if(interaction.values[0] === '1') description += 'No tengas dudas de que el plan te acerca a tus metas. Todavía falta para conseguirlas, pero ya has dado los primeros pasos que son súper importantes.\n¡Sigue así!\n\n'
     
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONSIXLOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Ahora que tienes el presupuesto, ¿te sientes que estás más cerca de tus metas?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Ahora que tienes el presupuesto, ¿te sientes que estás más cerca de tus metas?**`).catch(() => { null })
   
   const buttonData = {
     label: 'OBTENER PUNTOS',

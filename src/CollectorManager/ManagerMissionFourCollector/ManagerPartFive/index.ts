@@ -20,7 +20,7 @@ export const ManagerMissionFourPartFive = async (interaction: StringSelectMenuIn
   if(interaction.values[0] === '2') description += 'Obviamente a algunas personas les puede resultar más difícil que a otras, pero todas lo pueden lograr. Sigue ahora por la misión 4 que sumaras cada vez más herramientas para que sea cada vez más fácil para ti.\n\n'
   
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONFOURLOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Qué opinas sobre la planificación financiera personal?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Qué opinas sobre la planificación financiera personal?**`).catch(() => { null })
       
   const buttonData = {
     label: 'OBTENER PUNTOS',

@@ -20,7 +20,7 @@ export const ManagerMissionOnePartFour = async (interaction: StringSelectMenuInt
   if(interaction.values[0] === '3') embed = await WarningEmbed(`Ok. ¡¡Vamos a intentar revertir eso!! 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
 
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Cómo es tu actual relación con el dinero?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Cómo es tu actual relación con el dinero?**`).catch(() => { null })
     
   const embeds: any = []
 

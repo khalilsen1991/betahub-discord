@@ -18,7 +18,7 @@ export const ManagerMissionOnePartNine = async (interaction: StringSelectMenuInt
   if(interaction.values[0] === '2') description += `Tener conversaciones en familia sobre temas como el dinero a veces puede ser difícil. Sobre todo cuando estos temas pueden incomodar a alguien de la familia 🥺\n\n¿Cómo crees que la relación de tu familia con el dinero ha influido en la forma en que tú lo ves? 👀`
 
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Tienes conversaciones con tu familia o personas cercanas sobre cómo gestionar el dinero?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Tienes conversaciones con tu familia o personas cercanas sobre cómo gestionar el dinero?**`).catch(() => { null })
 
   description += '\n\nOpciones:\n\n1- Tengo mis propias opiniones\n2- Creo que mi familia influencia mucho mis opiniones\n3- No tengo muy claro si haya una relación entre mi familia y el dinero'
 

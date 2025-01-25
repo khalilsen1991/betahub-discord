@@ -18,7 +18,7 @@ export const ManagerMissionFourPartThree = async (interaction: StringSelectMenuI
   if(interaction.values[0] === '2') description += 'Ok, hagamos un repaso: calcula el equivalente a tus gastos de uno a tres meses y separa esa cantidad de dinero. La cantidad la eliges tú. Es importante dejarlo a salvo y usarlo solamente antes casos imprevistos y urgentes.\n\n'
     
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONFOURLOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Fondo de emergencia: ¿lo crearías para evitar riesgos?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Fondo de emergencia: ¿lo crearías para evitar riesgos?**`).catch(() => { null })
      
   description += '¿Cuál de estos es un deseo disfrazado de necesidad?\nOpciones:\n1= Comprar un auto para ir al trabajo porque no tienes transporte público que te sirva\n2= Comprar un auto de lujo cuando ya tienes uno que funciona bien\n3= Pagar el mantenimiento de tu casa'
   const embed = await WarningEmbed(description, interaction.guild?.members.cache.get(interaction.user.id)!)
@@ -27,7 +27,7 @@ export const ManagerMissionFourPartThree = async (interaction: StringSelectMenuI
   for (let i = 0; i < interaction.message.embeds.length; i++) {
     embeds.push(await DestructuringEmbeds(interaction.message.embeds[i]))
   }
-  embeds.push(embed[0])
+  embeds.push(embed[0].data)
 
   const data = {
     customId: `${interaction.user.id}-missionfour-part4`,
@@ -48,5 +48,5 @@ export const ManagerMissionFourPartThree = async (interaction: StringSelectMenuI
     ]
   }
   const components = await CreateSelectMenu(data) as ActionRowBuilder<StringSelectMenuBuilder>
-  interaction.update({ embeds: [embeds!], components: [components] })
+  interaction.update({ embeds, components: [components] })
 }

@@ -18,7 +18,7 @@ export const ManagerMissionFourPartTwo = async (interaction: StringSelectMenuInt
   if(interaction.values[0] === '2') description += 'Perfecto. Para cambiar los hábitos de gastos, el primer paso es decidirlo conscientemente. Y es lo que estás haciendo ahora. Necesitas de un plan al cual apegarte. Lo haremos a lo largo de las misiones.\n\n'
     
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONFOURLOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿qué sientes que necesitas?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿qué sientes que necesitas?**`).catch(() => { null })
       
   description += 'Fondo de emergencia: ¿lo crearías para evitar riesgos?'
   const embed = await WarningEmbed(description, interaction.guild?.members.cache.get(interaction.user.id)!)
@@ -27,7 +27,7 @@ export const ManagerMissionFourPartTwo = async (interaction: StringSelectMenuInt
   for (let i = 0; i < interaction.message.embeds.length; i++) {
     embeds.push(await DestructuringEmbeds(interaction.message.embeds[i]))
   }
-  embeds.push(embed[0])
+  embeds.push(embed[0].data)
 
   const data = {
     customId: `${interaction.user.id}-missionfour-part3`,

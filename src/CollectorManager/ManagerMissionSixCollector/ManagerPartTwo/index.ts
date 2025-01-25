@@ -18,7 +18,7 @@ export const ManagerMissionSixPartTwo = async (interaction: StringSelectMenuInte
   if(interaction.values[0] === '2') description += '¡Excelente! Seguro que así será entonces. Mantente con foco  y apégate al plan que ya armaste. Si bien la confianza es súper importante, no olvides que son tus primeras experiencias en finanzas y que necesitas prestar mucha atención.\n\n'
     
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONSIXLOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Te estás acercando mucho apoder crear tu propio presupuesto... ¿qué sientes?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Te estás acercando mucho apoder crear tu propio presupuesto... ¿qué sientes?**`).catch(() => { null })
        
   description += 'Ahora que tienes el presupuesto, ¿te sientes que estás más cerca de tus metas?'
   const embed = await WarningEmbed(description, interaction.guild?.members.cache.get(interaction.user.id)!)
@@ -45,5 +45,5 @@ export const ManagerMissionSixPartTwo = async (interaction: StringSelectMenuInte
     ]
   }
   const components = await CreateSelectMenu(data) as ActionRowBuilder<StringSelectMenuBuilder>
-  interaction.update({ embeds: [embeds!], components: [components] })
+  interaction.update({ embeds , components: [components] })
 }

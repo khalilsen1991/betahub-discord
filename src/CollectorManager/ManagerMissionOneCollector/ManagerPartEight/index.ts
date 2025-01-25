@@ -16,7 +16,7 @@ export const ManagerMissionOnePartEight = async (interaction: StringSelectMenuIn
   if(interaction.values[0] === '1') embed = await WarningEmbed(`¡No te preocupes! Estás a tiempo de aprender, para eso existe esta aventura 💪\n\n¡Nos acercamos al final de la primera misión! 🎉\n\nMuchas veces nuestra familia puede darnos tips e ideas para tener una buena relación con el dinero ¿Tienes conversaciones con tu familia o personas cercanas sobre cómo gestionar el dinero? 💰 `, interaction.guild?.members.cache.get(interaction.user.id)!)
   
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Sientes que sabes cómo manejar dinero?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Sientes que sabes cómo manejar dinero?**`).catch(() => { null })
     
   const embeds: any = []
   for (let i = 0; i < interaction.message.embeds.length; i++) {

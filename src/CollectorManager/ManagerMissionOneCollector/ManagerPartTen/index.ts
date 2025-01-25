@@ -26,7 +26,7 @@ export const ManagerMissionOnePartTen = async (interaction: StringSelectMenuInte
   }
 
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)
-  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Cómo crees que la relación de tu familia con el dinero ha influido en la forma en que tú lo ves?**`)
+  if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Cómo crees que la relación de tu familia con el dinero ha influido en la forma en que tú lo ves?**`).catch(() => { null })
 
   const components = await CreateButtonLink(buttonData) as ActionRowBuilder<ButtonBuilder>
   const embed = await SuccessfullyEmbed(description, interaction.guild?.members.cache.get(interaction.user.id)!)

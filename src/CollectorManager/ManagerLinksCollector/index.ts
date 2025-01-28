@@ -93,7 +93,7 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
             }  else {
               const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
               const data = ButtonData(interaction.user.id, role)
-              const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
+              const components = interaction.customId.split('-')[1] === 'detector' ? await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[] : await CreateSettingButtonOptions(data) as ActionRowBuilder<ButtonBuilder>[]
               interaction.reply({ embeds, components, ephemeral: true  }) 
             }
           })

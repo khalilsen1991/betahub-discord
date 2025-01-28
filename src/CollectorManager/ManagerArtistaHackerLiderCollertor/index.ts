@@ -1,9 +1,8 @@
-import { ButtonInteraction, roleMention } from "discord.js";
+import { ButtonInteraction } from "discord.js";
 import { ClientWithCommands, GuildDocument } from "../../types";
-import { KEYMISSIONFIVECOMPLETE, MISSIONFIVECOMPLETEOLEID, ROLE_EVENT_MENTION } from "../../globals";
+import { KEYMISSIONFIVECOMPLETE, MISSIONFIVECOMPLETEOLEID } from "../../globals";
 import { GetHubKeys, PostHubKeys } from "../../Utils/ApiConnections";
-import { commandMiddleware } from "../../Functions/CommandMiddleware";
-import { ErrorEmbed, SendEndMissionEmbed } from "../../Utils/Embeds";
+import { SendEndMissionEmbed } from "../../Utils/Embeds";
 require('dotenv').config()
 
 export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, client: ClientWithCommands, serverConfigs: GuildDocument) => {
@@ -13,12 +12,9 @@ export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, 
     if(member.roles.cache.has(MISSIONFIVECOMPLETEOLEID)) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
     member.roles.add(MISSIONFIVECOMPLETEOLEID).then(async (newMember) => {
       await GetHubKeys(member, KEYMISSIONFIVECOMPLETE)
-        .then(async ({ data }) => {
-          console.log('data MISION 5 : ', data) 
-          console.log('member.id : ', member.id) 
-          console.log('TOKEN FITCHIN : ', process.env.TOKEN_FITCHIN) 
+        .then(async ({ data }) => { 
           if(data === 'Key aviable'){
-            fetch('https://api.fitchin.gg/gamification/challenge-player/complete', {
+            fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
               headers: { 
                 'Content-Type': 'application/json',
                 'x-api-key': process.env.TOKEN_FITCHIN!

@@ -5,6 +5,7 @@ import { GetHubKeys, PostHubKeys } from "../../Utils/ApiConnections";
 import { commandMiddleware } from "../../Functions/CommandMiddleware";
 import { CreateLinkDetectorButtons, CreateSettingButtonOptions } from "../../Utils/CreateButton/CreateButton";
 import { ErrorEmbed, SendEndMissionEmbed, SendEndMissionEmbedWithPoints } from "../../Utils/Embeds";
+
 require('dotenv').config()
 
 type ButtonDataType = {
@@ -60,8 +61,8 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
 }
 
 const rolesToAdd: Record<string, string> = {
-  'malicioso': '937504723035111444',
-  'detector': '941831125888815105',
+  'malicioso': '1333807301949263902',
+  'detector': '1333807402532864060',
   'seguro': MISSIONTENCOMPLETEOLEID,
   'virus': MISSIONTENCOMPLETEOLEID,
   'experto': MISSIONELEVENCOMPLETEROLEID
@@ -73,8 +74,8 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
     for (const role in rolesToAdd) {
       if (interaction.customId.split('-')[1] === role) {
         if(interaction.customId.includes('detector-1')){
-          member.roles.add('961300610026721372')
-          if(member.roles.cache.has('961300610026721372')) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
+          member.roles.add(MISSIONTENCOMPLETEOLEID)
+          if(member.roles.cache.has(MISSIONTENCOMPLETEOLEID)) return interaction.reply({ content: `Elige otro emoji`, ephemeral: true })
         } else {
           member.roles.add(rolesToAdd[role]).then(async (newMember) => {
             if(rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID){
@@ -91,20 +92,25 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
                       body: JSON.stringify({ "key": keyId, "discordId":  member.id }) 
                     }) 
                       .then(async (res) => {
-                        if(res.statusText === 'Accepted') await PostHubKeys(member, keyId)
+                        if(res.statusText === 'Accepted') {
+                          await PostHubKeys(member, keyId)
+                          const embedEndMission = rolesToAdd[role] === MISSIONTENCOMPLETEOLEID ? await SendEndMissionEmbedWithPoints('seguro') : await SendEndMissionEmbedWithPoints('experto')
+                        }
                       })
                       .catch((err) => console.log(err))
                   }
                 })
                 .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })
+              } else {
+
               }
           })
           .catch((err) => console.log(err))
-          if(member.roles.cache.has(rolesToAdd[role])) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
+          if(member.roles.cache.has(rolesToAdd[role])) return interaction.reply({ content: `Elige otro emoji.`, ephemeral: true })
         }
       }
     }
-    return interaction.reply({ content: `GENIAL :white_check_mark: Mira el canal que te aparece a la izquierda.\nÓTIMO :white_check_mark: Veja o canal que aparece à esquerda.`, ephemeral: true })
+    return interaction.reply({ content: `GENIAL :white_check_mark: Mira el canal que te aparece a la izquierda.`, ephemeral: true })
   } catch (error) {
     console.log('Error in LinksButtons', error)
   }

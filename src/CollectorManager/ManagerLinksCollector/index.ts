@@ -95,7 +95,7 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
               const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
               const data = ButtonData(interaction.user.id, role)
               const components = interaction.customId.split('-')[1] === 'detector' ? await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[] : await CreateSettingButtonOptions(data[0]) as ActionRowBuilder<ButtonBuilder>[]
-              interaction.update({ embeds, components }) 
+              interaction.reply({ embeds, components }) 
             }
           })
         .catch((err) => console.log(err))

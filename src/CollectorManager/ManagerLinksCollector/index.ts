@@ -61,8 +61,8 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
 }
 
 const rolesToAdd: Record<string, string> = {
-  'malicioso': '1333807301949263902',
-  'detector': '1333807402532864060',
+  'malicioso': '1333819690971037746',
+  'detector': '1333819750505255005',
   'seguro': MISSIONTENCOMPLETEOLEID,
   'virus': MISSIONTENCOMPLETEOLEID,
   'experto': MISSIONELEVENCOMPLETEROLEID

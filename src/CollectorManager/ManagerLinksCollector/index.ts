@@ -39,11 +39,11 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
       }
     ],
     'seguro': [{
-      customId: `${userId}-${messageType}`,
+      customId: `${userId}-completeMissionTen`,
       label: 'Obtener puntos'
     }],
     'virus': [{
-      customId: `${userId}-${messageType}`,
+      customId: `${userId}-completeMissionTen`,
       label: 'Obtener puntos'
     }]
   }

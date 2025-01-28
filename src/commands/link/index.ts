@@ -29,7 +29,7 @@ module.exports = {
       if(!channel || !messageType) return interaction.reply({ embeds: await ErrorEmbed('Channel not found or select a choise', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
       
       const ButtonData = {
-        malicioso: [
+        detector: [
           {
             customId: `${channelId}-detector`,
             buttonEmoji: '👹'
@@ -48,7 +48,7 @@ module.exports = {
       }
 
       let components : ActionRowBuilder<ButtonBuilder>[]
-      if(messageType === 'malicioso') components = await CreateLinkMaliciosoButtons(ButtonData['malicioso']) as ActionRowBuilder<ButtonBuilder>[]
+      if(messageType === 'malicioso') components = await CreateLinkMaliciosoButtons(ButtonData['detector']) as ActionRowBuilder<ButtonBuilder>[]
       if(messageType === 'experto') components = await CreateLinkMaliciosoButtons(ButtonData['experto']) as ActionRowBuilder<ButtonBuilder>[]
       
       const embeds = await SendEndMissionEmbedWithPoints(messageType)

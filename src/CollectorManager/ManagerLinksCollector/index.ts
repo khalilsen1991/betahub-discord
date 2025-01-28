@@ -95,7 +95,6 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
               const data = ButtonData(interaction.user.id, role)
               const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
               interaction.reply({ embeds, components, ephemeral: true  }) 
-              interaction.reply({ content: 'a. Haces click en el botón COMPRAR, abres la página, copias el enlace desde el navegador y lo analizas.\nb. Copias la url del botón COMPRAR con el botón derecho del mouse y lo pegas en los sitios de verificación.\nc. Abres el enlace en una ventana nueva y verificas su contenido en los sitios que te dimos arriba.\nd. Ignoras el enlace y borras el correo o mensaje que lo contiene.', components, ephemeral: true  })
             }
           })
         .catch((err) => console.log(err))

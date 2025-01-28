@@ -1,8 +1,7 @@
 import { Message, Client, Guild, SlashCommandBuilder, ChatInputCommandInteraction, ActionRowBuilder, ButtonBuilder, TextChannel } from 'discord.js'
-import { ErrorEmbed, SendArtistHackerOrLiderEmbed, SendEndMissionEmbedWithPoints } from '../../Utils/Embeds'
+import { ErrorEmbed, SendEndMissionEmbedWithPoints } from '../../Utils/Embeds'
 import { ClientWithCommands, GuildDocument } from '../../types'
-import { CreateLinkDetectorButtons, CreateLinkMaliciosoButtons, CreateSettingButtonOptions } from '../../Utils/CreateButton/CreateButton'
-import { CreateArrayButtonWithEmoji } from '../../Utils/CreateButton'
+import { CreateLinkMaliciosoButtons } from '../../Utils/CreateButton/CreateButton'
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -24,11 +23,8 @@ module.exports = {
     try {
       if(!interaction.guildId) return interaction.reply({ embeds: await ErrorEmbed('Error to use command', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
       const channelId = interaction.options.getString('channel')?.replace(/[^\d]/g, '')! || interaction.options.getString('user')!    
-      console.log('channelId', channelId)
       const messageType = interaction.options.getString('message-type')!
-      console.log('messageType', messageType)
       const channel = guild.channels.cache.get(channelId) as TextChannel
-      console.log('channel', channel)
 
       if(!channel || !messageType) return interaction.reply({ embeds: await ErrorEmbed('Channel not found or select a choise', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
       
@@ -56,8 +52,6 @@ module.exports = {
       if(messageType === 'experto') components = await CreateLinkMaliciosoButtons(ButtonData['experto']) as ActionRowBuilder<ButtonBuilder>[]
       
       const embeds = await SendEndMissionEmbedWithPoints(messageType)
-      console.log('embeds', embeds)
-      console.log('components', components!)
       channel.send({ embeds, components: components! }).catch((error) => {})
       interaction.reply({ content:  `Message sent to ${channel}`, ephemeral: true })
 

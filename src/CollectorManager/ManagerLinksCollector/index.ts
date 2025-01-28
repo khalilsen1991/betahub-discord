@@ -62,10 +62,10 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
   try {
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
     for (const role in rolesToAdd) {
-      console.log('interaction.customId.split(-)[1]', interaction.customId.split('-')[1])
-      console.log('rolesToAdd[role]', rolesToAdd[role])
       if (interaction.customId.split('-')[1] === role) {
         member.roles.add(rolesToAdd[role]).then(async (newMember) => {
+          console.log('Role ADD', rolesToAdd[role])
+          console.log('rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID', rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID)
           if(rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID){
             const keyId = rolesToAdd[role] === MISSIONTENCOMPLETEOLEID ? KEYMISSIONTENCOMPLETE : KEYMISSIONELEVENCOMPLETE
             await GetHubKeys(member, keyId)
@@ -90,13 +90,13 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
                 }
               })
               .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })
-            } /* else {
+            }  else {
               const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
               const data = ButtonData(interaction.user.id, role)
               const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
               interaction.reply({ embeds, components, ephemeral: true  }) 
               interaction.reply({ content: 'a. Haces click en el botón COMPRAR, abres la página, copias el enlace desde el navegador y lo analizas.\nb. Copias la url del botón COMPRAR con el botón derecho del mouse y lo pegas en los sitios de verificación.\nc. Abres el enlace en una ventana nueva y verificas su contenido en los sitios que te dimos arriba.\nd. Ignoras el enlace y borras el correo o mensaje que lo contiene.', components, ephemeral: true  })
-            } */
+            }
           })
         .catch((err) => console.log(err))
        /*  const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]

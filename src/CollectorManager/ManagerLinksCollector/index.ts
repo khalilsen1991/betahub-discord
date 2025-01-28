@@ -92,11 +92,14 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
               const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
               const data = ButtonData(interaction.user.id, role)
               const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
-              interaction.reply({ embeds, components, ephemeral: true  })
+              interaction.reply({ embeds, components, ephemeral: true  })  
             }
           })
         .catch((err) => console.log(err))
-        if(member.roles.cache.has(rolesToAdd[role])) return interaction.reply({ content: `Elige otro emoji.`, ephemeral: true })
+        const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
+        const data = ButtonData(interaction.user.id, role)
+        const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
+        interaction.reply({ embeds, components, ephemeral: true  })      
       }
     }
     return interaction.reply({ content: `GENIAL :white_check_mark: Mira el canal que te aparece a la izquierda.`, ephemeral: true })

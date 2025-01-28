@@ -62,10 +62,10 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
   try {
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
     for (const role in rolesToAdd) {
-      console.log('interaction.customId.split(-)[1]', interaction.customId.split('-')[1])
-      console.log('role', role)
-      console.log('rolesToAdd[role]', rolesToAdd[role])
       if (interaction.customId.split('-')[1] === role) {
+        console.log('interaction.customId.split(-)[1]', interaction.customId.split('-')[1])
+        console.log('role', role)
+        console.log('rolesToAdd[role]', rolesToAdd[role])
         member.roles.add(rolesToAdd[role]).then(async (newMember) => {
           if(rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID){
             const keyId = rolesToAdd[role] === MISSIONTENCOMPLETEOLEID ? KEYMISSIONTENCOMPLETE : KEYMISSIONELEVENCOMPLETE

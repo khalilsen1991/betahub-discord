@@ -25,7 +25,10 @@ module.exports = {
       if(!interaction.guildId) return interaction.reply({ embeds: await ErrorEmbed('Error to use command', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
       const channelId = interaction.options.getString('channel')?.replace(/[^\d]/g, '')! || interaction.options.getString('user')!    
       const messageType = interaction.options.getString('message-type')!
+      console.log('messageType', messageType)
       const channel = guild.channels.cache.get(channelId) as TextChannel
+      console.log('channel', channel)
+
       if(!channel || !messageType) return interaction.reply({ embeds: await ErrorEmbed('Channel not found or select a choise', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
       
       const ButtonData = {

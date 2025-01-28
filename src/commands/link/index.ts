@@ -31,11 +31,11 @@ module.exports = {
       const ButtonData = {
         malicioso: [
           {
-            customId: `${channelId}-${messageType}-0`,
+            customId: `${channelId}-detector-0`,
             buttonEmoji: '👹'
           },
           {
-            customId: `${channelId}-${messageType}-1`,
+            customId: `${channelId}-detector-1`,
             buttonEmoji: '☠️'
           }
         ],
@@ -52,8 +52,6 @@ module.exports = {
       if(messageType === 'experto') components = await CreateLinkMaliciosoButtons(ButtonData['experto']) as ActionRowBuilder<ButtonBuilder>[]
       
       const embeds = await SendEndMissionEmbedWithPoints(messageType)
-      console.log('embeds', embeds)
-      console.log('components', components!)
       channel.send({ embeds, components: components! }).catch((error) => {})
       interaction.reply({ content:  `Message sent to ${channel}`, ephemeral: true })
 

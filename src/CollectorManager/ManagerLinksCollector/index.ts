@@ -20,7 +20,7 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
         buttonEmoji: '💪'
       }
     ],
-    'malicioso': [
+    'detector': [
       {
         customId: `${userId}-virus-0`,
         buttonLabel: 'A'
@@ -51,9 +51,10 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
 }
 
 const rolesToAdd: Record<string, string> = {
-  'malicioso': '1333819750505255005',
-  'seguro': MISSIONTENCOMPLETEOLEID,
-  'virus': MISSIONTENCOMPLETEOLEID,
+  'detector': '1333819750505255005',
+  'seguro': '1333833453753467022',
+  'virus': '1333833338900840509',
+  'completeMissionTen': MISSIONTENCOMPLETEOLEID,
   'experto': MISSIONELEVENCOMPLETEROLEID
 };
 
@@ -82,9 +83,8 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
                     .then(async (res) => {
                       if(res.statusText === 'Accepted') {
                         await PostHubKeys(member, keyId)
-                        const embedEndMissionRole = await SendEndMissionEmbedWithPoints(role)
-                        const embedEndMission = await SendEndMissionEmbed()
-                        interaction.reply({ embeds: [embedEndMissionRole[0], embedEndMission[0]], ephemeral: true })
+                        const embeds = await SendEndMissionEmbed()
+                        interaction.reply({ embeds, ephemeral: true })
                       }
                     })
                     .catch((err) => console.log(err))

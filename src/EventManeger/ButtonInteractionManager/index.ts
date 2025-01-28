@@ -18,14 +18,14 @@ export const ButtonInteractionManager = async (interaction: ButtonInteraction<Ca
       }
       if(interaction.customId.includes('Tipo-de-lider')) TipoDeLiderButtons(interaction, client, serverConfigs)
       if(interaction.customId.split('-')[1] === 'artista' || interaction.customId.split('-')[1] === 'hacker' || interaction.customId.split('-')[1] ==='lider') ArtistaHackerLiderButtons(interaction, client, serverConfigs)
-      if(interaction.customId.split('-')[1] === 'malicioso' || interaction.customId.split('-')[1] === 'detector' || interaction.customId.split('-')[1] === 'virus' || interaction.customId.split('-')[1] === 'seguro' || interaction.customId.split('-')[1] === 'experto') LinksButtons(interaction, client, serverConfigs)
+      if(interaction.customId.split('-')[1] === 'malicioso' || interaction.customId.split('-')[1] === 'detector' || interaction.customId.split('-')[1] === 'virus' || interaction.customId.split('-')[1] === 'seguro' || interaction.customId.split('-')[1] === 'experto' || interaction.customId.split('-')[1] === 'completeMissionTen') LinksButtons(interaction, client, serverConfigs)
       if(interaction.customId.split('-')[1] === 'MissionOne') await ManagerMissionOneCollector(interaction, client, serverConfigs)
     }) 
     .catch(async (err) => { 
       await commandMiddleware(interaction.guild?.members.cache.get(interaction.user.id)!)
       if(interaction.customId.includes('Tipo-de-lider')) TipoDeLiderButtons(interaction, client, serverConfigs)
       if(interaction.customId.split('-')[1] === 'artista' || interaction.customId.split('-')[1] === 'hacker' || interaction.customId.split('-')[1] ==='lider') ArtistaHackerLiderButtons(interaction, client, serverConfigs)
-      if(interaction.customId.split('-')[1] === 'malicioso' || interaction.customId.split('-')[1] === 'detector' || interaction.customId.split('-')[1] === 'virus' || interaction.customId.split('-')[1] === 'seguro' || interaction.customId.split('-')[1] === 'experto') LinksButtons(interaction, client, serverConfigs)
+      if(interaction.customId.split('-')[1] === 'malicioso' || interaction.customId.split('-')[1] === 'detector' || interaction.customId.split('-')[1] === 'virus' || interaction.customId.split('-')[1] === 'seguro' || interaction.customId.split('-')[1] === 'experto' || interaction.customId.split('-')[1] === 'completeMissionTen') LinksButtons(interaction, client, serverConfigs)
       if(interaction.customId.split('-')[1] === 'MissionOne') await ManagerMissionOneCollector(interaction, client, serverConfigs)
     })
 }

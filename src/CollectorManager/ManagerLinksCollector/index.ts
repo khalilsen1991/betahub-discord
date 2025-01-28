@@ -60,8 +60,8 @@ const rolesToAdd: Record<string, string> = {
 
 export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   try {
-    console.log('interaction.customId', interaction.customId)
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
+    if(member.roles.cache.has(MISSIONTENCOMPLETEOLEID)) return interaction.reply({ embeds: await ErrorEmbed('**Ya completaste esta misión**', member), ephemeral: true })
     for (const role in rolesToAdd) {
       if (interaction.customId.split('-')[1] === role) {
         member.roles.add(rolesToAdd[role]).then(async (newMember) => {

@@ -9,7 +9,7 @@ export const ArtistaHackerLiderButtons = async (interaction: ButtonInteraction, 
   try { 
     if(interaction.user.id === interaction.customId.split(' ')[0])  return
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
-    if(member.roles.cache.has(MISSIONFIVECOMPLETEOLEID)) return interaction.reply({ content: `Elige otro emoji  / Escolha outro emoji`, ephemeral: true })
+    if(member.roles.cache.has(MISSIONFIVECOMPLETEOLEID)) return interaction.reply({ content: `Elige otro emoji`, ephemeral: true })
     member.roles.add(MISSIONFIVECOMPLETEOLEID).then(async (newMember) => {
       await GetHubKeys(member, KEYMISSIONFIVECOMPLETE)
         .then(async ({ data }) => { 

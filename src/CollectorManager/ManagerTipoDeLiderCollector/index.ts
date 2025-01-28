@@ -7,7 +7,7 @@ import { CreateSettingButtonOptions } from "../../Utils/CreateButton/CreateButto
 export const TipoDeLiderButtons = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   const member = interaction.guild!.members.cache.get(interaction.user.id)!
   if(member.roles.cache.has(MISSIONFIVECOMPLETEOLEID)) {
-    const embeds = await ErrorEmbed(':flag_es: **Ya completaste esta misión**', member)
+    const embeds = await ErrorEmbed('**Ya completaste esta misión**', member)
     return interaction.reply({ embeds, ephemeral: true })
   }
   const customId = interaction.customId.split(' ')[1].toLocaleLowerCase()

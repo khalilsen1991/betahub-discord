@@ -171,7 +171,7 @@ export function SendEndMissionEmbedWithPoints(messageType: string): EmbedBuilder
 				color: 15526925
 			},
 			detector: {
-				description: "B-024 debe aprender qué herramientas existen para detectar enlaces sospechosos y cómo usarlas de forma segura.\n### https://transparencyreport.google.com/safe-browsing/search?hl=es \n\n**¿Cuál crees que es la mejor manera de analizar un enlace que te llegó en un mail de promoción? Responde con la opcion que corresponda.**",
+				description: "B-024 debe aprender qué herramientas existen para detectar enlaces sospechosos y cómo usarlas de forma segura.\n### https://transparencyreport.google.com/safe-browsing/search?hl=es \n\n**¿Cuál crees que es la mejor manera de analizar un enlace que te llegó en un mail de promoción? Responde con la opcion que corresponda.** \n\na. Haces click en el botón COMPRAR, abres la página, copias el enlace desde el navegador y lo analizas.\nb. Copias la url del botón COMPRAR con el botón derecho del mouse y lo pegas en los sitios de verificación.\nc. Abres el enlace en una ventana nueva y verificas su contenido en los sitios que te dimos arriba.\nd. Ignoras el enlace y borras el correo o mensaje que lo contiene.",
 				image: 'https://imgur.com/YMP5A7M.png',
 				color: 16774400
 			},

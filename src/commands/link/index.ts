@@ -24,6 +24,7 @@ module.exports = {
     try {
       if(!interaction.guildId) return interaction.reply({ embeds: await ErrorEmbed('Error to use command', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
       const channelId = interaction.options.getString('channel')?.replace(/[^\d]/g, '')! || interaction.options.getString('user')!    
+      console.log('channelId', channelId)
       const messageType = interaction.options.getString('message-type')!
       console.log('messageType', messageType)
       const channel = guild.channels.cache.get(channelId) as TextChannel

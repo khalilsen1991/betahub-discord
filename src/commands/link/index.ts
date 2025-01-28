@@ -52,6 +52,8 @@ module.exports = {
       if(messageType === 'experto') components = await CreateLinkMaliciosoButtons(ButtonData['experto']) as ActionRowBuilder<ButtonBuilder>[]
       
       const embeds = await SendEndMissionEmbedWithPoints(messageType)
+      console.log('embeds', embeds)
+      console.log('components', components!)
       channel.send({ embeds, components: components! }).catch((error) => {})
       interaction.reply({ content:  `Message sent to ${channel}`, ephemeral: true })
 

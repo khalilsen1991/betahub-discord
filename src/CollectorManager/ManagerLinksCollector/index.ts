@@ -60,6 +60,7 @@ const rolesToAdd: Record<string, string> = {
 
 export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   try {
+    console.log('interaction.customId', interaction.customId)
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
     for (const role in rolesToAdd) {
       if (interaction.customId.split('-')[1] === role) {

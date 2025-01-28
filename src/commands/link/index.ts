@@ -31,11 +31,11 @@ module.exports = {
       const ButtonData = {
         malicioso: [
           {
-            customId: `${channelId}-${messageType}-0`,
+            customId: `${channelId}-detector`,
             buttonEmoji: '👹'
           },
           {
-            customId: `${channelId}-${messageType}-1`,
+            customId: `${channelId}-detector`,
             buttonEmoji: '☠️'
           }
         ],

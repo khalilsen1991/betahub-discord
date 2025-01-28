@@ -14,16 +14,6 @@ type ButtonDataType = {
 
 const ButtonData = (userId: string, messageType: string): { customId: string; buttonEmoji?: string; buttonLabel?: string; label?: string }[] => {
   const data: ButtonDataType = {
-    'malicioso': [
-      {
-        customId: `${userId}-${messageType}-0`,
-        buttonEmoji: '👹'
-      },
-      {
-        customId: `${userId}-${messageType}-1`,
-        buttonEmoji: '☠️'
-      }
-    ],
     'experto': [
       {
         customId: `${userId}-${messageType}-0`,
@@ -32,36 +22,35 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
     ],
     'detector': [
       {
-        customId: `${userId}-${messageType}-0`,
+        customId: `${userId}-virus-0`,
         buttonLabel: 'A'
       },
       {
-        customId: `${userId}-${messageType}-1`,
+        customId: `${userId}-seguro-1`,
         buttonLabel: 'B'
       },
       {
-        customId: `${userId}-${messageType}-2`,
+        customId: `${userId}-virus-2`,
         buttonLabel: 'C'
       },
       {
-        customId: `${userId}-${messageType}-3`,
+        customId: `${userId}-virus-3`,
         buttonLabel: 'D'
       }
     ],
     'seguro': [{
       customId: `${userId}-${messageType}`,
-      label: 'Obtener puntos / Receber pontos'
+      label: 'Obtener puntos'
     }],
     'virus': [{
       customId: `${userId}-${messageType}`,
-      label: 'Obtener puntos / Receber pontos'
+      label: 'Obtener puntos'
     }]
   }
   return data[messageType]
 }
 
 const rolesToAdd: Record<string, string> = {
-  'malicioso': '1333819690971037746',
   'detector': '1333819750505255005',
   'seguro': MISSIONTENCOMPLETEOLEID,
   'virus': MISSIONTENCOMPLETEOLEID,
@@ -73,44 +62,41 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
     for (const role in rolesToAdd) {
       if (interaction.customId.split('-')[1] === role) {
-        if(interaction.customId.includes('detector-1')){
-          member.roles.add(MISSIONTENCOMPLETEOLEID)
-          if(member.roles.cache.has(MISSIONTENCOMPLETEOLEID)) return interaction.reply({ content: `Elige otro emoji`, ephemeral: true })
-        } else {
-          member.roles.add(rolesToAdd[role]).then(async (newMember) => {
-            if(rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID){
-              const keyId = rolesToAdd[role] === MISSIONTENCOMPLETEOLEID ? KEYMISSIONTENCOMPLETE : KEYMISSIONELEVENCOMPLETE
-              await GetHubKeys(member, keyId)
-                .then(async ({ data }) => {
-                  if(data === 'Key aviable'){                
-                    fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
-                      headers: {
-                        'Content-Type': 'application/json' ,
-                          'x-api-key': process.env.TOKEN_FITCHIN || ''
-                        },
-                      method: 'POST',
-                      body: JSON.stringify({ "key": keyId, "discordId":  member.id }) 
-                    }) 
-                      .then(async (res) => {
-                        if(res.statusText === 'Accepted') {
-                          await PostHubKeys(member, keyId)
-                          const embedEndMission = rolesToAdd[role] === MISSIONTENCOMPLETEOLEID ? await SendEndMissionEmbedWithPoints('seguro') : await SendEndMissionEmbedWithPoints('experto')
-                        }
-                      })
-                      .catch((err) => console.log(err))
-                  }
-                })
-                .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })
-              } else {
-                const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
-                const data = ButtonData(interaction.user.id, role)
-                const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
-                interaction.reply({ embeds, components, ephemeral: true  })
-              }
+        member.roles.add(rolesToAdd[role]).then(async (newMember) => {
+          if(rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID){
+            const keyId = rolesToAdd[role] === MISSIONTENCOMPLETEOLEID ? KEYMISSIONTENCOMPLETE : KEYMISSIONELEVENCOMPLETE
+            await GetHubKeys(member, keyId)
+              .then(async ({ data }) => {
+                if(data === 'Key aviable'){                
+                  fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
+                    headers: {
+                      'Content-Type': 'application/json' ,
+                        'x-api-key': process.env.TOKEN_FITCHIN || ''
+                      },
+                    method: 'POST',
+                    body: JSON.stringify({ "key": keyId, "discordId":  member.id }) 
+                  }) 
+                    .then(async (res) => {
+                      if(res.statusText === 'Accepted') {
+                        await PostHubKeys(member, keyId)
+                        const embedEndMissionRole = await SendEndMissionEmbedWithPoints(role)
+                        const embedEndMission = await SendEndMissionEmbed()
+                        interaction.reply({ embeds: [embedEndMissionRole[0], embedEndMission[0]], ephemeral: true })
+                      }
+                    })
+                    .catch((err) => console.log(err))
+                }
+              })
+              .catch(async ({ response }) => { if(response?.data?.message === 'GuildMember not found') await commandMiddleware(newMember) })
+            } else {
+              const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
+              const data = ButtonData(interaction.user.id, role)
+              const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
+              interaction.reply({ embeds, components, ephemeral: true  })
+            }
           })
-          .catch((err) => console.log(err))
-          if(member.roles.cache.has(rolesToAdd[role])) return interaction.reply({ content: `Elige otro emoji.`, ephemeral: true })
-        } 
+        .catch((err) => console.log(err))
+        if(member.roles.cache.has(rolesToAdd[role])) return interaction.reply({ content: `Elige otro emoji.`, ephemeral: true })
       }
     }
     return interaction.reply({ content: `GENIAL :white_check_mark: Mira el canal que te aparece a la izquierda.`, ephemeral: true })

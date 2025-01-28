@@ -20,7 +20,7 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
         buttonEmoji: '💪'
       }
     ],
-    'detector': [
+    'malicioso': [
       {
         customId: `${userId}-virus-0`,
         buttonLabel: 'A'
@@ -51,7 +51,7 @@ const ButtonData = (userId: string, messageType: string): { customId: string; bu
 }
 
 const rolesToAdd: Record<string, string> = {
-  'detector': '1333819750505255005',
+  'malicioso': '1333819750505255005',
   'seguro': MISSIONTENCOMPLETEOLEID,
   'virus': MISSIONTENCOMPLETEOLEID,
   'experto': MISSIONELEVENCOMPLETEROLEID

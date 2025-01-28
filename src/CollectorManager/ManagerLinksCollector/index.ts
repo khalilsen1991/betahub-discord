@@ -61,6 +61,9 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
   try {
     const member = interaction.guild!.members.cache.get(interaction.user.id)!
     for (const role in rolesToAdd) {
+      console.log('interaction.customId.split(-)[1]', interaction.customId.split('-')[1])
+      console.log('role', role)
+      console.log('rolesToAdd[role]', rolesToAdd[role])
       if (interaction.customId.split('-')[1] === role) {
         member.roles.add(rolesToAdd[role]).then(async (newMember) => {
           if(rolesToAdd[role] === MISSIONTENCOMPLETEOLEID || rolesToAdd[role] === MISSIONELEVENCOMPLETEROLEID){
@@ -100,9 +103,13 @@ export const LinksButtons = async (interaction: ButtonInteraction<CacheType>, cl
         const data = ButtonData(interaction.user.id, role)
         const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
         interaction.reply({ embeds, components, ephemeral: true  })      
+      } else {
+        const embeds = await SendEndMissionEmbedWithPoints(role) as EmbedBuilder[]
+        const data = ButtonData(interaction.user.id, role)
+        const components = await CreateLinkDetectorButtons(data) as ActionRowBuilder<ButtonBuilder>[]
+        interaction.reply({ embeds, components, ephemeral: true  })      
       }
     }
-    return interaction.reply({ content: `GENIAL :white_check_mark: Mira el canal que te aparece a la izquierda.`, ephemeral: true })
   } catch (error) {
     console.log('Error in LinksButtons', error)
   }

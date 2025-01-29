@@ -38,6 +38,7 @@ module.exports = {
       }
       messageChunks.push(currentChunk);
       for (const chunk of messageChunks) {
+        console.log('length = ',chunk.length);
         await channel.send(chunk);
       }
       if(!role) return interaction.reply({ embeds: await ErrorEmbed('Role not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})

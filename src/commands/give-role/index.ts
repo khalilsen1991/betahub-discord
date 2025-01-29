@@ -33,13 +33,13 @@ module.exports = {
                       if (member) {
                         member.roles.add(role)
                         .then(() => {
-                          interaction.reply({ content: `Role ${role.name} added to ${member.user.username}` })
+                          message.channel.send({ content: `Role ${role.name} added to ${member.user.username}` })
                         })
                         .catch((error) => {
-                          interaction.reply({ content: `Error to add role ${role.name} to ${member.user.username}` })
+                          message.channel.send({ content: `Error to add role ${role.name} to ${member.user.username}` })
                         })
                       } else {
-                        interaction.reply({ content: `El usuario con el id  ${id} no forma parte de este servidor` })
+                        message.channel.send({ content: `El usuario con el id  ${id} no forma parte de este servidor` })
                       }
                     }, index * 2000)
                   })

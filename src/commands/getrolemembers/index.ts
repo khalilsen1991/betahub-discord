@@ -21,17 +21,12 @@ module.exports = {
       const roleId = interaction.options.getString('role')?.replace(/[^\d]/g, '')! || interaction.options.getString('role')!    
       const role = guild.roles.cache.get(roleId) as Role      
       if(!role) return interaction.reply({ embeds: await ErrorEmbed('Role not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
-      const members = role?.members.map((member: GuildMember) => {
-        return !DISMISSEDDISCORDIDS.includes(member.user.id) ? member.user.id : null
-      }).filter(id => id !== null).join(', ')
-      const chunkSize = 1900;
-      const memberChunks = [];
-      for (let i = 0; i < members.length; i += chunkSize) {
-        memberChunks.push(members.slice(i, i + chunkSize));
+      const membersWithRole = role.members.filter(member => !DISMISSEDDISCORDIDS.includes(member.id)).map(member => member.id);
+      const channel = interaction.channel as TextChannel;
+      if (membersWithRole.length === 0) {
+        return interaction.reply({ embeds: await ErrorEmbed('No members found with the specified role', guild.members.cache.get(interaction.user.id)!), ephemeral: true });
       }
-      for (const chunk of memberChunks) {
-        await interaction.channel!.send({ content: `Members with role ${role.name}: \`\`\`${chunk}\`\`\`` });
-      }
+      channel.send(`Members with role ${role.name}: ${membersWithRole.join(', ')}`);
       if(!role) return interaction.reply({ embeds: await ErrorEmbed('Role not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
     } catch (error) {
       console.log(`Error ${interaction.commandName} command`, error)

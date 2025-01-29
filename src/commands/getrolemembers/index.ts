@@ -26,7 +26,19 @@ module.exports = {
       if (membersWithRole.length === 0) {
         return interaction.reply({ embeds: await ErrorEmbed('No members found with the specified role', guild.members.cache.get(interaction.user.id)!), ephemeral: true });
       }
-      channel.send(`Members with role ${role.name}: ${membersWithRole.join(', ')}`);
+      const messageChunks = [];
+      let currentChunk = `Members with role ${role.name}: `;
+      for (const memberId of membersWithRole) {
+        if ((currentChunk + memberId).length > 2000) {
+          messageChunks.push(currentChunk);
+          currentChunk = '';
+        }
+        currentChunk += `${memberId}, `;
+      }
+      messageChunks.push(currentChunk);
+      for (const chunk of messageChunks) {
+        await channel.send(chunk);
+      }
       if(!role) return interaction.reply({ embeds: await ErrorEmbed('Role not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
     } catch (error) {
       console.log(`Error ${interaction.commandName} command`, error)

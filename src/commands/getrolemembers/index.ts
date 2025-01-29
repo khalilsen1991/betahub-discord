@@ -29,7 +29,7 @@ module.exports = {
       const messageChunks = [];
       let currentChunk = `Members with role ${role.name}: `;
       for (const memberId of membersWithRole) {
-        if ((currentChunk + memberId).length > 2000) {
+        if ((currentChunk + memberId).length > 1900) {
           messageChunks.push(currentChunk);
           currentChunk = '';
         }

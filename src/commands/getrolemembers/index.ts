@@ -30,7 +30,7 @@ module.exports = {
         memberChunks.push(members.slice(i, i + chunkSize));
       }
       for (const chunk of memberChunks) {
-        await interaction.followUp({ content: `Members with role ${role.name}: \`\`\`${chunk}\`\`\`` });
+        await interaction.channel!.send({ content: `Members with role ${role.name}: \`\`\`${chunk}\`\`\`` });
       }
       if(!role) return interaction.reply({ embeds: await ErrorEmbed('Role not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
     } catch (error) {

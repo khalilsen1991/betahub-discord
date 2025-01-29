@@ -27,6 +27,7 @@ module.exports = {
         return interaction.reply({ embeds: await ErrorEmbed('No members found with the specified role', guild.members.cache.get(interaction.user.id)!), ephemeral: true });
       }
       const messageChunks = [];
+      interaction.reply({ content: `Estamos procesando los datos... Aguarde un momento` });
       let currentChunk = `Members with role ${role.name}: `;
       for (const memberId of membersWithRole) {
         if ((currentChunk + memberId).length > 1900) {

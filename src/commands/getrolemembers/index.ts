@@ -24,7 +24,14 @@ module.exports = {
       const members = role?.members.map((member: GuildMember) => {
         return !DISMISSEDDISCORDIDS.includes(member.user.id) ? member.user.id : null
       }).filter(id => id !== null).join(', ')
-      interaction.reply({ content: `Members with role ${role.name}: \`\`\`${members}\`\`\`` })
+      const chunkSize = 1900;
+      const memberChunks = [];
+      for (let i = 0; i < members.length; i += chunkSize) {
+        memberChunks.push(members.slice(i, i + chunkSize));
+      }
+      for (const chunk of memberChunks) {
+        await interaction.followUp({ content: `Members with role ${role.name}: \`\`\`${chunk}\`\`\`` });
+      }
       if(!role) return interaction.reply({ embeds: await ErrorEmbed('Role not found', guild.members.cache.get(interaction.user.id)!) , ephemeral: true})
     } catch (error) {
       console.log(`Error ${interaction.commandName} command`, error)

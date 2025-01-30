@@ -25,6 +25,7 @@ export const MessageEventManager = async (message: Message, client: ClientWithCo
 
 export const MessageUpdateEventManager = async (oldMessage: Message<boolean> | PartialMessage, newMessage: Message<boolean> | PartialMessage, client: ClientWithCommands, guild: Guild, serverConfigs: GuildDocument) => {
   try {
+    if(newMessage.author!.bot) return
     if(newMessage.guildId !== guild.id) return
     if(newMessage.channelId === serverConfigs.messagesLogsChannelId) return
     const channelLogs = guild.channels.cache.get(serverConfigs.messagesLogsChannelId) as GuildBasedChannel | undefined
@@ -38,6 +39,7 @@ export const MessageUpdateEventManager = async (oldMessage: Message<boolean> | P
 
 export const MessagDeleteEventManager = async (message: Message<boolean> | PartialMessage, client: ClientWithCommands, guild: Guild, serverConfigs: GuildDocument) => {
   try {
+    if(message.author!.bot) return
     if(message.guildId !== guild.id) return
     if(message.channelId === serverConfigs.messagesLogsChannelId) return
     const channelLogs = guild.channels.cache.get(serverConfigs.messagesLogsChannelId) as GuildBasedChannel | undefined

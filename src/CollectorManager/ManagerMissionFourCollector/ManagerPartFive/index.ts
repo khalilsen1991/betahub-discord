@@ -15,9 +15,9 @@ const responses = {
 
 export const ManagerMissionFourPartFive = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   let description = ''
-  if(interaction.values[0] === '0') description += 'Nos gusta esa respuesta. Tal cual. Sigamos adelante con la misión número 4.\n\n'
-  if(interaction.values[0] === '1') description += 'Mmmm, esta herramienta es para todas las personas. Sigue avanzando con la misión 4 que seguro cambiarás de opinión.\n\n'
-  if(interaction.values[0] === '2') description += 'Obviamente a algunas personas les puede resultar más difícil que a otras, pero todas lo pueden lograr. Sigue ahora por la misión 4 que sumaras cada vez más herramientas para que sea cada vez más fácil para ti.\n\n'
+  if(interaction.values[0] === '0') description += 'Nos gusta esa respuesta. Tal cual. Sigamos adelante con la misión número 5.\n\n'
+  if(interaction.values[0] === '1') description += 'Mmmm, esta herramienta es para todas las personas. Sigue avanzando con la misión 5 que seguro cambiarás de opinión.\n\n'
+  if(interaction.values[0] === '2') description += 'Obviamente a algunas personas les puede resultar más difícil que a otras, pero todas lo pueden lograr. Sigue ahora por la misión 5 que sumaras cada vez más herramientas para que sea cada vez más fácil para ti.\n\n'
   
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONFOURLOGSCHANNELID)
   if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **¿Qué opinas sobre la planificación financiera personal?**`).catch(() => { null })

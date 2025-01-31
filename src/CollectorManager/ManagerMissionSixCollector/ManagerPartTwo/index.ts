@@ -13,9 +13,9 @@ const responses = {
 
 export const ManagerMissionSixPartTwo = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
   let description = ''
-  if(interaction.values[0] === '0') description += 'Perfecto, necesitarás cierta disciplina para poder cumplir con tu presupuesto. Cada vez te resultará más fácil y natural. Inténtalo, estas aprendiendo herramientas que te permitirán lograrlo.\n\n'
-  if(interaction.values[0] === '1') description += 'Ok, es bastante normal, no te preocupes. Son tus primeras experiencias en el mundo de las finanzas. Es valioso que admitas lo que sientes. Úsalo a tu favor para prestar mucha atención y para apegarte al plan que ya creaste. Ten disciplina y lo conseguirás.\n\n'
-  if(interaction.values[0] === '2') description += '¡Excelente! Seguro que así será entonces. Mantente con foco  y apégate al plan que ya armaste. Si bien la confianza es súper importante, no olvides que son tus primeras experiencias en finanzas y que necesitas prestar mucha atención.\n\n'
+  if(interaction.values[0] === '0') description += 'Perfecto, al comienzo necesitarás cierta disciplina para poder cumplir con tu presupuesto. Luego, será más fácil y natural. Recuerda que estás aprendiendo herramientas que te permitirán lograrlo.\n\n'
+  if(interaction.values[0] === '1') description += 'Ok, es bastante normal, no te preocupes. Son tus primeras experiencias en el mundo de las finanzas. Es valioso que admitas lo que sientes. Úsalo a tu favor para prestar mucha atención y para apegarte al plan. Si sientes un poco de inseguridad, una buena opción puede ser plantearte metas que sean fáciles para ti (por ejemplo: proponerte ahorrar de a poquito en vez de a grandes cantidades). Ten confianza, disciplina y lo conseguirás.\n\n'
+  if(interaction.values[0] === '2') description += '¡Excelente! Seguro que así será entonces. Mantente con foco y apégate al plan que vas a crear. Si bien la confianza es súper importante, no olvides que son tus primeras experiencias en finanzas y que necesitas prestar mucha atención.\n\n'
     
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONSIXLOGSCHANNELID)
   if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Te estás acercando mucho apoder crear tu propio presupuesto... ¿qué sientes?**`).catch(() => { null })

@@ -16,7 +16,7 @@ export const ManagerMissionOnePartFour = async (interaction: StringSelectMenuInt
   let embed
   if(interaction.values[0] === '0') embed = await WarningEmbed(`Perfecto! Esta aventura te servirá para entender cómo funciona el dinero 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
   if(interaction.values[0] === '1') embed = await WarningEmbed(`¡Ok! En esta aventura podrán conocerse mejor y más rápido 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
-  if(interaction.values[0] === '2') embed = await WarningEmbed(`¡Buenísimo! Seguro en esta aventura encuentras cosas para que la relación sea aún mejor 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
+  if(interaction.values[0] === '2') embed = await WarningEmbed(`¡Buenísimo! Seguro en esta aventura encontrarás cosas para que la relación sea aún mejor 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
   if(interaction.values[0] === '3') embed = await WarningEmbed(`Ok. ¡¡Vamos a intentar revertir eso!! 🙌\n\n¿Piensas que es fácil o difícil ganar dinero? `, interaction.guild?.members.cache.get(interaction.user.id)!)
 
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONONELOGSCHANNELID)

@@ -5,7 +5,7 @@ import { CreateSelectMenu } from "../../../Utils/CreateSelectMenu";
 import { DestructuringEmbeds } from "../../../Utils/DestructuringEmbeds";
 
 export const ManagerMissionOnePartTwo = async (interaction: StringSelectMenuInteraction<CacheType>, client: ClientWithCommands, serverConfigs: GuildDocument) => {
-  const embed = await WarningEmbed(`Empecemos entonces por hablar sobre el dinero 💰\n\nCuando piensas en dinero...`, interaction.guild?.members.cache.get(interaction.user.id)!)
+  const embed = await WarningEmbed(`Empecemos entonces por hablar sobre el dinero 💰\n\nCuando piensas en dinero... ¿qué sientes?`, interaction.guild?.members.cache.get(interaction.user.id)!)
   const embeds: any = []
 
   for (let i = 0; i < interaction.message.embeds.length; i++) {

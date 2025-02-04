@@ -20,7 +20,7 @@ export const ManagerMissionSixPartTwo = async (interaction: StringSelectMenuInte
   const channelLogs = interaction.guild?.channels.cache.get(MISSIONSIXLOGSCHANNELID)
   if(channelLogs && channelLogs.type === ChannelType.GuildText) channelLogs.send(`**${interaction.guild?.members.cache.get(interaction.user.id)?.user.username}** ha seleccionado la opción **${responses[interaction.values[0] as keyof typeof responses]}** en la pregunta **Te estás acercando mucho apoder crear tu propio presupuesto... ¿qué sientes?**`).catch(() => { null })
        
-  description += 'Ahora que tienes el presupuesto, ¿te sientes que estás más cerca de tus metas?'
+  description += '¿Sientes que cuando tengas tu presupuesto estarás más cerca de tus metas?'
   const embed = await WarningEmbed(description, interaction.guild?.members.cache.get(interaction.user.id)!)
 
   const embeds: any = []

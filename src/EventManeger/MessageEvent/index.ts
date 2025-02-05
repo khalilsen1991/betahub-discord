@@ -35,7 +35,7 @@ export const MessageEventManager = async (message: Message, client: ClientWithCo
           }) 
             .then(async (res) => {
               if(res.statusText === 'Accepted') await PostHubKeys(guild.members.cache.get(message.author.id)!, keyId)
-              const embeds = await SuccessfullyEmbed(`🏆 ¡MISIÓN COMPLETADA Y CURSO TERMINADO!  🏆\nPara ver tu progreso dirígete [**AQUÍ**](https://staging.fitchin.gg/communities/mundo-beta/challenges)`, guild.members.cache.get(message.author.id)!)
+              const embeds = await SuccessfullyEmbed(`🏆 ¡MISIÓN COMPLETADA Y CURSO TERMINADO!  🏆\n\nPuedes quedarte en el canal <#1331662547887063103> participando y ayudando`, guild.members.cache.get(message.author.id)!)
               await message.reply({ embeds })
                 .then(async (msg) => {
                   setTimeout(() => msg.delete(), 60000)

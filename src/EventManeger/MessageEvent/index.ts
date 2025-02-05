@@ -1,7 +1,9 @@
 import { ChannelType, Guild, GuildBasedChannel, Message, PartialMessage } from 'discord.js'
 import { config } from 'dotenv'
 import { ClientWithCommands, GuildDocument } from '../../types'
-import { MESSAGESHAREACHIEVEMENTCHANNELID, MISSIONNINETEMPTWOCOMPLETEROLEID } from '../../globals'
+import { KEYMISSIONNINECOMPLETE, MESSAGESHAREACHIEVEMENTCHANNELID, MISSIONNINETEMPTWOCOMPLETEROLEID } from '../../globals'
+import { GetHubKeys, PostHubKeys } from '../../Utils/ApiConnections'
+import { SuccessfullyEmbed } from '../../Utils/Embeds'
 config()
 
 export const MessageEventManager = async (message: Message, client: ClientWithCommands, guild: Guild, serverConfigs: GuildDocument) => {
@@ -16,10 +18,29 @@ export const MessageEventManager = async (message: Message, client: ClientWithCo
   }
   if(message.channelId === MESSAGESHAREACHIEVEMENTCHANNELID){
     if(message.author.bot) return
-    if(message.attachments.size === 0) return message.delete()
-    if(guild.members.cache.get(message.author.id)?.roles.cache.has(MISSIONNINETEMPTWOCOMPLETEROLEID)) return message.delete()
+    if(guild.members.cache.get(message.author.id)?.roles.cache.has(MISSIONNINETEMPTWOCOMPLETEROLEID))
     await guild.members.cache.get(message.author.id)?.roles.add(MISSIONNINETEMPTWOCOMPLETEROLEID)
     message.react(`🎊`)
+    const keyId = KEYMISSIONNINECOMPLETE
+    await GetHubKeys(guild.members.cache.get(message.author.id)!, keyId)
+      .then(async ({ data }) => {
+        if(data === 'Key aviable'){                
+          await fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
+            headers: {
+              'Content-Type': 'application/json' ,
+                'x-api-key': process.env.TOKEN_FITCHIN || ''
+              },
+            method: 'POST',
+            body: JSON.stringify({ "key": keyId, "discordId":  message.author.id }) 
+          }) 
+            .then(async (res) => {
+              if(res.statusText === 'Accepted') await PostHubKeys(guild.members.cache.get(message.author.id)!, keyId)
+              const embeds = await SuccessfullyEmbed(`🏆 ¡MISIÓN COMPLETADA Y CURSO TERMINADO!  🏆\nPara ver tu progreso dirígete [**AQUÍ**](https://staging.fitchin.gg/communities/mundo-beta/challenges)`, guild.members.cache.get(message.author.id)!)
+              await message.reply({ embeds })
+            })
+            .catch((err) => console.log(err))
+        }
+      })
   }
 }
 

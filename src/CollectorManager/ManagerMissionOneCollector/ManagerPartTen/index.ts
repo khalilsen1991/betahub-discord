@@ -21,7 +21,7 @@ export const ManagerMissionOnePartTen = async (interaction: StringSelectMenuInte
 
   const buttonData = {
     label: 'OBTENER PUNTOS',
-    link: 'https://fitchin.gg/communities/mundo-beta/challenges',
+    link: 'https://fitchin.gg/communities/mundo-beta/challenges?season=2',
     style: 5
   }
 

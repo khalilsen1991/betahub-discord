@@ -22,7 +22,7 @@ export const ManagerMissionSixPartThree = async (interaction: StringSelectMenuIn
   
   const buttonData = {
     label: 'OBTENER PUNTOS',
-    link: 'https://fitchin.gg/communities/mundo-beta/challenges',
+    link: 'https://fitchin.gg/communities/mundo-beta/challenges?season=2',
     style: 5
   }
   const components = await CreateButtonLink(buttonData) as ActionRowBuilder<ButtonBuilder>

@@ -18,7 +18,7 @@ export const MessageEventManager = async (message: Message, client: ClientWithCo
   }
   if(message.channelId === MESSAGESHAREACHIEVEMENTCHANNELID){
     if(message.author.bot) return
-    if(guild.members.cache.get(message.author.id)?.roles.cache.has(MISSIONNINETEMPTWOCOMPLETEROLEID))
+    if(guild.members.cache.get(message.author.id)?.roles.cache.has(MISSIONNINETEMPTWOCOMPLETEROLEID)) return
     await guild.members.cache.get(message.author.id)?.roles.add(MISSIONNINETEMPTWOCOMPLETEROLEID)
     message.react(`🎊`)
     const keyId = KEYMISSIONNINECOMPLETE

@@ -43,7 +43,7 @@ export const ManagerMissionFourPartFive = async (interaction: StringSelectMenuIn
   await GetHubKeys(newMember, keyId)
     .then(async ({ data }) => {
       if(data === 'Key aviable'){                
-        await fetch('https://api.staging.fitchin.gg/gamification/challenge-player/complete', {
+        await fetch('https://api.fitchin.gg/gamification/challenge-player/complete', {
           headers: {
             'Content-Type': 'application/json' ,
             'x-api-key': process.env.TOKEN_FITCHIN || ''
